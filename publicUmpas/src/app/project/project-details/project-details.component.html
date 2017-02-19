@@ -1,0 +1,16 @@
+<div class="container">
+
+    <div class="form-group">
+      <label>პროექტის სახელი :</label>
+      <input type="text" class="form-control" placeholder="პროექტი" [(ngModel)]="currentProjectItem.name">
+      <label>აღწერა :</label>
+      <input type="text" class="form-control" placeholder="აღწერა" [(ngModel)]="currentProjectItem.description">
+      <label>მონაცემთა წყარო (მისამართი) :</label>
+      <input type="text" class="form-control" placeholder="წყარო" [(ngModel)]="currentProjectItem.sourceDataBaseUrl">
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSave()">შენახვა</button>
+    </div>
+
+</div>
