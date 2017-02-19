@@ -1,0 +1,27 @@
+{
+  "name": "umpas",
+  "version": "1.0.0",
+  "description": "decentralized user management central admin panel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_ENV=dev&& node app.js",
+    "production": "set NODE_ENV=production&& node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drsmog/umpas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drsmog/umpas/issues"
+  },
+  "homepage": "https://github.com/drsmog/umpas#readme",
+  "dependencies": {
+    "body-parser": "1.16.1",
+    "config": "1.25.1",
+    "express": "4.14.1",
+    "log4js": "1.1.0"
+  }
+}
