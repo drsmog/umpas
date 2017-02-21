@@ -1,0 +1,18 @@
+<div>
+
+  <div class="list-group">
+    <app-project-item *ngFor="let project of projects" [projectItem]="project"></app-project-item>
+  </div>
+
+  <div class="modal-footer project-list-actions">
+    <button type="button" class="btn btn-primary" title="ახალი პროექტის დამატება" data-toggle="modal" data-target="#new-project-modal">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+
+</div>
+
+
+<app-modal modalId="new-project-modal">
+  <app-project-details [currentProjectItem]="newProjectItem"></app-project-details>
+</app-modal>

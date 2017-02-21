@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectService } from './project.service';
+import { NotificationsService } from '../core/notification/notifications.service';
 
 @Component({
   selector: 'app-project',
@@ -8,32 +10,71 @@ import { Component, OnInit } from '@angular/core';
 export class ProjectComponent implements OnInit {
 
 
-  projects = [
-    { id: 1, name: 'dayCenter', description: 'baby care organizations' },
-    { id: 2, name: 'high mountine', description: 'Benefits for village doctors' },
-    { id: 3, name: 'Help Desk', description: 'ehealth internal helpdesk system' },
-
-  ];
+  projects: any;
   selectedProjectItem: any;
   newProjectItem: any = {};
+  beforeChangeProjectItem: any;
 
-  constructor() { }
+  constructor(
+    private projectService: ProjectService,
+    private notificationsService: NotificationsService
+  )
+  { }
 
   ngOnInit() {
+    this.projectService.getProjectList().then(projects => {
+      this.projects = projects;
+    });
   }
 
-  onProjectItemClick(project) {
-    this.selectedProjectItem = project;
+  // onProjectItemClick(project) {
+  //   this.undoChangesOnSwitch();
+  //   this.selectedProjectItem = project;
+  //   this.beforeChangeProjectItem = Object.assign({}, this.selectedProjectItem);
+  //   this.notificationsService.addNotification('blablabla','success', 5000);
+  //
+  // }
 
-  }
-
-  onSaveNewProject(project) {
-    if(project.id) return ;
-    project.id = this.projects.length+1;
-    this.projects.push(project);
-    this.newProjectItem={};
-    // console.log(event);
-    // console.log(this.newProjectItem);
-  }
+  // undoChangesOnSwitch() {
+  //
+  //   if (this.selectedProjectItem &&
+  //     this.beforeChangeProjectItem !== this.selectedProjectItem) {
+  //
+  //     Object.assign(this.selectedProjectItem, this.beforeChangeProjectItem)
+  //
+  //   }
+  // }
+  // approveChange(project) {
+  //   Object.assign(this.beforeChangeProjectItem, project);
+  // }
+  //
+  // onSaveProject(project) {
+  //
+  //   if (project.id) {
+  //     this.editProject(project);
+  //     return;
+  //   }
+  //
+  //   this.addNewProject(project);
+  // }
+  //
+  // addNewProject(project) {
+  //   this.projectService.postProject(project)
+  //     .then(result => {
+  //       project.id = result.id
+  //       this.projects.push(project);
+  //       this.newProjectItem = {};
+  //     });
+  //
+  // }
+  //
+  // editProject(project) {
+  //   this.projectService.updateProject(project)
+  //     .then(result => {
+  //       this.approveChange(project);
+  //       //TODO alert success
+  //     });
+  //
+  // }
 
 }

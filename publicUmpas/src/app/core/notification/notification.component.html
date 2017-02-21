@@ -1,0 +1,5 @@
+<div *ngFor="let notification of notifications; let i = index">
+  <div class="alert alert-dismissable {{notification.type}}">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="onClose(i)">&times;</button> {{notification.message}}
+  </div>
+</div>

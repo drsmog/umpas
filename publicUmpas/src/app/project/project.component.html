@@ -1,22 +1,26 @@
-<div>
+<app-project-list [projects]="projects"></app-project-list>
 
-  <div class="list-group">
-    <a class="list-group-item" *ngFor="let project of projects" (click)="onProjectItemClick(project)" [class.active]="project===selectedProjectItem">
-      <h4 class="list-group-item-heading">{{project.name}}</h4>
-      <p class="list-group-item-text">{{project.description}}</p>
-    </a>
+<!-- <div>
+
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+  </ul>
+
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+      <app-project-details *ngIf="selectedProjectItem" [currentProjectItem]="selectedProjectItem" (save)="onSaveProject($event)"></app-project-details>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <h2>profile</h2></div>
+    <div role="tabpanel" class="tab-pane" id="messages">
+      <h2>message</h2></div>
+    <div role="tabpanel" class="tab-pane" id="settings">
+      <h2>settings</h2></div>
   </div>
-  <div class="project-list-actions">
-    <button type="button" class="btn btn-primary" title="ახალი პროექტის დამატება" data-toggle="modal" data-target="#new-project-modal">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-    </button>
-  </div>
 
-</div>
-
-<app-project-details *ngIf="selectedProjectItem" [currentProjectItem]="selectedProjectItem" (save)="onSaveNewProject($event)"></app-project-details>
-
-
-<app-modal modalId="new-project-modal">
-  <app-project-details [currentProjectItem]="newProjectItem" (save)="onSaveNewProject($event)"></app-project-details>
-</app-modal>
+</div> -->
