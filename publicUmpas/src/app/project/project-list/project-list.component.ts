@@ -8,19 +8,45 @@ import { ProjectService } from '../project.service';
 })
 export class ProjectListComponent implements OnInit {
 
-  @Input() projects: any;
+  @Output() onProjectSelect = new EventEmitter();
 
-  constructor(private projectService: ProjectService) { }
+  //projects: any = [];
+  newProject: any = {};
 
-  ngOnInit() {
-  }
 
   get selectedProject() {
     return this.projectService.selectedProject;
   }
 
-  get newProjectItem() {
-    return this.projectService.newProjectItem;
+  set selectedProject(value) {
+    Object.assign(this.projectService.selectedProject, value);
   }
+
+  get projects(){
+    return this.projectService.projects;
+  }
+
+  constructor(private projectService: ProjectService) { }
+
+
+  ngOnInit() {
+    this.projectService.loadProjectList();
+
+  }
+
+  onSelect(project) {
+
+    this.projectService.selectedProject = Object.assign({}, project);
+    this.onProjectSelect.emit(this.projectService.selectedProject);
+
+  }
+
+  onSave(project) {
+    this.projectService.save(project);
+
+  }
+
+
+
 
 }

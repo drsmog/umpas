@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProjectService } from './project/project.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  constructor(private projectService: ProjectService) {
+
+  }
+
+  get selectedProject() {
+
+    return this.projectService.selectedProject;
+
+  }
+
+  onProjectSave(event){
+    this.projectService.save(event);
+  }
+
+
+
+
 }

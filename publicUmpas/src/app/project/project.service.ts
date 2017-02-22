@@ -6,8 +6,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ProjectService {
 
+  projects: any = [];
   selectedProject: any;
-  newProjectItem: any={};
+
 
   private headers = new Headers({
     'Content-type': 'application/json'
@@ -15,9 +16,13 @@ export class ProjectService {
 
   private url = 'api/projects';
 
+  get projectList() {
+    return this.projects;
+  }
+
   constructor(private http: Http) { }
 
-  getProjectList() {
+  loadProjectList() {
     return this.http.get(this.url).toPromise()
       .then(response => response.json().data);
   }
@@ -37,6 +42,37 @@ export class ProjectService {
       { headers: this.headers }).toPromise()
       .then(response => response.json().data);
   }
+
+
+  save(project) {
+    console.log(project);
+
+    if (project.id)
+      return this.updateProject(project);
+    this.addNewProject(project);
+  }
+
+  addNewProject(project) {
+    this.postProject(project)
+      .then(result => {
+        project.id = result.id;
+        //this.projects.push(project);
+      });
+  }
+
+  editProject(project) {
+
+    for (let i = 0; i < this.projects.length; i++) {
+      if (this.projects[i].id === project.id) {
+
+        this.projects[i] = project;
+        this.selectedProject = project;
+        return;
+      }
+    }
+
+  }
+
 
 
 

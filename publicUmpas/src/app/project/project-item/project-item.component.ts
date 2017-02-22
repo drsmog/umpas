@@ -9,7 +9,7 @@ import { ProjectService } from '../project.service';
 export class ProjectItemComponent implements OnInit {
 
   @Input() projectItem;
-  
+
   constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
@@ -17,6 +17,10 @@ export class ProjectItemComponent implements OnInit {
 
   get selectedProject() {
     return this.projectService.selectedProject;
+  }
+  get isSelected(){
+    if(!this.selectedProject) return  false;
+    return (this.projectService.selectedProject.id === this.projectItem.id)
   }
 
 }

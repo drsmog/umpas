@@ -12,7 +12,6 @@ import { NotificationComponent } from './core/notification/notification.componen
 
 
 import { AppComponent } from './app.component';
-import { ProjectComponent } from './project/project.component';
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
 import { ProjectService } from './project/project.service';
 import { ProjectListComponent } from './project/project-list/project-list.component';
@@ -23,7 +22,6 @@ import { ProjectItemComponent } from './project/project-item/project-item.compon
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectComponent,
     ModalComponent,
     ProjectDetailsComponent,
     NotificationComponent,

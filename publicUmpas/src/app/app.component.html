@@ -1,3 +1,37 @@
-<app-project></app-project>
+<app-project-list></app-project-list>
+
+
+
+<div>
+
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#project" role="tab" data-toggle="tab">Project Details</a></li>
+    <li role="presentation"><a href="#roles" role="tab" data-toggle="tab">Roles</a></li>
+    <li role="presentation"><a href="#users" role="tab" data-toggle="tab">Users</a></li>
+    <li role="presentation"><a href="#logs" role="tab" data-toggle="tab">App Logs</a></li>
+    <li role="presentation"><a href="#health" role="tab" data-toggle="tab">Health</a></li>
+  </ul>
+
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="project">
+      <app-project-details *ngIf="selectedProject" [currentProjectItem]="selectedProject" (save)="onProjectSave($event)"></app-project-details>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="roles">...</div>
+    <div role="tabpanel" class="tab-pane" id="users">...</div>
+    <div role="tabpanel" class="tab-pane" id="logs">...</div>
+    <div role="tabpanel" class="tab-pane" id="health">...</div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
 
 <app-notification class="general-notifications"></app-notification>

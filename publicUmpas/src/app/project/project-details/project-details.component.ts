@@ -1,4 +1,5 @@
-import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ProjectService } from '../project.service';
 
 @Component({
   selector: 'app-project-details',
@@ -7,16 +8,19 @@ import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 })
 export class ProjectDetailsComponent implements OnInit {
 
-  @Input() currentProjectItem:any;
+
+  @Input() currentProjectItem: any;
 
   @Output() save = new EventEmitter();
 
-  constructor() { }
+  private projectItem: any = {};
+
+  constructor(private projectService:ProjectService) { }
 
   ngOnInit() {
   }
 
-  onSave(){
+  onSave() {
     this.save.emit(this.currentProjectItem);
   }
 
