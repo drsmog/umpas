@@ -1,6 +1,6 @@
 <div>
   <div class="list-group">
-    <app-project-item *ngFor="let project of projects" [projectItem]="project" (click)="onSelect(project)"></app-project-item>
+    <app-project-item *ngFor="let project of projectService.projects" [projectItem]="project" (click)="onSelect(project)"></app-project-item>
   </div>
 
   <div class="modal-footer project-list-actions">
@@ -12,5 +12,5 @@
 
 
 <app-modal modalId="new-project-modal">
-  <app-project-details (save)="onSave($event)" [currentProjectItem]="newProject"></app-project-details>
+  <app-project-details (save)="onSave($event)" [currentProjectItem]="projectService.newProject"></app-project-details>
 </app-modal>

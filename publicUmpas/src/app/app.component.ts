@@ -9,13 +9,10 @@ import { ProjectService } from './project/project.service';
 export class AppComponent {
 
   constructor(private projectService: ProjectService) {
-
   }
 
   get selectedProject() {
-
     return this.projectService.selectedProject;
-
   }
 
   onProjectSave(event){
