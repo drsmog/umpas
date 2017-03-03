@@ -18,7 +18,9 @@
     <div role="tabpanel" class="tab-pane active" id="project">
       <app-project-details *ngIf="selectedProject" [currentProjectItem]="selectedProject" (save)="onProjectSave($event)"></app-project-details>
     </div>
-    <div role="tabpanel" class="tab-pane" id="roles">...</div>
+    <div role="tabpanel" class="tab-pane" id="roles">
+      <app-role></app-role>
+    </div>
     <div role="tabpanel" class="tab-pane" id="users">...</div>
     <div role="tabpanel" class="tab-pane" id="logs">...</div>
     <div role="tabpanel" class="tab-pane" id="health">...</div>

@@ -13,10 +13,13 @@ import { NotificationComponent } from './core/notification/notification.componen
 
 import { AppComponent } from './app.component';
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
-import { ProjectService } from './project/project.service';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectItemComponent } from './project/project-item/project-item.component';
+import { ProjectService } from './project/project.service';
 
+import { RoleComponent } from './role/role.component';
+import { RoleListComponent } from './role/role-list/role-list.component';
+import { RoleService } from './role/role.service';
 
 
 @NgModule({
@@ -26,14 +29,16 @@ import { ProjectItemComponent } from './project/project-item/project-item.compon
     ProjectDetailsComponent,
     NotificationComponent,
     ProjectListComponent,
-    ProjectItemComponent
+    ProjectItemComponent,
+    RoleComponent,
+    RoleListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [ProjectService,NotificationsService],
+  providers: [ProjectService,NotificationsService,RoleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
