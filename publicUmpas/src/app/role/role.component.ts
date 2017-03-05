@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoleService } from './role.service';
 
 @Component({
   selector: 'app-role',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleComponent implements OnInit {
 
-  constructor() { }
+  newRole:any={};
+
+  constructor(private roleService: RoleService) { }
 
   ngOnInit() {
   }

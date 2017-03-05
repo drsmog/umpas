@@ -20,6 +20,7 @@ import { ProjectService } from './project/project.service';
 import { RoleComponent } from './role/role.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
 import { RoleService } from './role/role.service';
+import { RoleDetailsComponent } from './role/role-details/role-details.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { RoleService } from './role/role.service';
     ProjectListComponent,
     ProjectItemComponent,
     RoleComponent,
-    RoleListComponent
+    RoleListComponent,
+    RoleDetailsComponent
   ],
   imports: [
     BrowserModule,

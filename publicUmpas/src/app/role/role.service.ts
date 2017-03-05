@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RoleService {
 
+  selectedRole:any;
+
   constructor() { }
 
   roles: any = [
@@ -11,21 +13,24 @@ export class RoleService {
       name: 'მომხმარებელი',
       description: 'გააჩნიათ დათვარიელების უფლება'
     }, {
-      id: 1,
+      id: 2,
       name: 'ოპერატორი',
       description: 'გააჩნიათ ინფორმაციის შეყვანის უფლება'
     }, {
-      id: 1,
+      id: 3,
       name: 'ინსპექტირება',
       description: 'მხოლოდ სტატისტიკა'
     }, {
-      id: 1,
+      id: 4,
       name: 'ადმინისტრატორი',
       description: 'ადმინისტრირების ფუნქციონალი ყველაფერთან ერთად'
     }, {
-      id: 1,
+      id: 5,
       name: 'პროვაიდერი',
       description: 'წყარო'
     }];
+
+
+
 
 }

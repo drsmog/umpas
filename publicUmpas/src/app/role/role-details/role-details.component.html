@@ -1,0 +1,15 @@
+
+<div class="container-fluid">
+
+  <div class="form-group">
+    <label>დასახელება</label>
+    <input type="text" class="form-control" placeholder="როლი" [(ngModel)]="currentRole.name">
+    <label>აღწერა</label>
+    <input type="text" class="form-control" placeholder="აღწერა" [(ngModel)]="currentRole.description">
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSave()">შენახვა</button>
+  </div>
+
+</div>

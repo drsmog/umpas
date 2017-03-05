@@ -8,9 +8,18 @@ import { RoleService } from '../role.service';
 })
 export class RoleListComponent implements OnInit {
 
-  constructor(private roleService:RoleService) { }
+  constructor(private roleService: RoleService) { }
 
   ngOnInit() {
+  }
+
+  onSelect(role) {
+    this.roleService.selectedRole = Object.assign({}, role);
+  }
+
+  isSelected(role) {
+    if(!this.roleService.selectedRole) return false;
+    return this.roleService.selectedRole.id === role.id;
   }
 
 }

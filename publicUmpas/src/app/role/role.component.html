@@ -1,12 +1,38 @@
 <div class="container-fluid">
+
   <div class="row">
+
     <div class="col-xs-5">
 
-    <app-role-list></app-role-list>
+      <div class="input-group">
+
+        <input type="text" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-default">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </span>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" title="ახალი როლი" data-toggle="modal" data-target="#new-role-modal">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </span>
+      </div>
+
+      <app-role-list></app-role-list>
 
     </div>
-    <div class="col-xs-3" style="background-color:yellow">
-      happy new year
+
+    <div class="col-xs-7" *ngIf="roleService.selectedRole">
+
+      <app-role-details [currentRole]="roleService.selectedRole"></app-role-details>
+
     </div>
+
   </div>
 </div>
+
+
+<app-modal modalId="new-role-modal">
+  <app-role-details [currentRole]="newRole"></app-role-details>
+</app-modal>

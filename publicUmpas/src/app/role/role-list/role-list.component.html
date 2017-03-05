@@ -1,5 +1,5 @@
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let role of roleService.roles">
+  <a class="list-group-item" *ngFor="let role of roleService.roles" (click)="onSelect(role)" [class.active]="isSelected(role)">
     <h4 class="list-group-item-heading">{{role.name}}</h4>
     <p class="list-group-item-text">{{role.description}}</p>
   </a>
