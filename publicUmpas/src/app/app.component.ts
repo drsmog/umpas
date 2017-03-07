@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProjectService } from './project/project.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,15 +8,7 @@ import { ProjectService } from './project/project.service';
 })
 export class AppComponent {
 
-  constructor(private projectService: ProjectService) {
-  }
-
-  get selectedProject() {
-    return this.projectService.selectedProject;
-  }
-
-  onProjectSave(event){
-    this.projectService.save(event);
+  constructor() {
   }
 
 

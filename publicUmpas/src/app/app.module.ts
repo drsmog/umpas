@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { InMemoryDataService } from './in-memory-data.service';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 //shared service
 import { NotificationsService} from './core/notification/notifications.service';
 
@@ -14,13 +18,16 @@ import { NotificationComponent } from './core/notification/notification.componen
 import { AppComponent } from './app.component';
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
-import { ProjectItemComponent } from './project/project-item/project-item.component';
-import { ProjectService } from './project/project.service';
+import { ProjectService } from './project/service/project.service';
+import { ProjectApiService } from './project/service/project-api.service';
 
 import { RoleComponent } from './role/role.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
-import { RoleService } from './role/role.service';
+import { RoleService } from './role/service/role.service';
+import { RoleApiService } from './role/service/role-api.service';
 import { RoleDetailsComponent } from './role/role-details/role-details.component';
+import { ProjectComponent } from './project/project.component';
+import { NameFilterPipe } from './core/pipe/name-filter.pipe';
 
 
 @NgModule({
@@ -30,17 +37,19 @@ import { RoleDetailsComponent } from './role/role-details/role-details.component
     ProjectDetailsComponent,
     NotificationComponent,
     ProjectListComponent,
-    ProjectItemComponent,
     RoleComponent,
     RoleListComponent,
-    RoleDetailsComponent
+    RoleDetailsComponent,
+    ProjectComponent,
+    NameFilterPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
-  providers: [ProjectService,NotificationsService,RoleService],
+  providers: [ProjectService, ProjectApiService, RoleService, RoleApiService, NotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

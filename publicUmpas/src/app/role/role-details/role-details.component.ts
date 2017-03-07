@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { RoleService } from '../service/role.service';
 
 @Component({
   selector: 'app-role-details',
@@ -9,9 +10,14 @@ export class RoleDetailsComponent implements OnInit {
 
   @Input() currentRole:any;
 
-  constructor() { }
+
+  constructor(private roleService:RoleService) { }
 
   ngOnInit() {
+  }
+
+  onSave(){
+    this.roleService.save(this.currentRole);
   }
 
 

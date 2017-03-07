@@ -1,6 +1,23 @@
+<div class="input-group">
+
+  <input #nameFilterInput type="text" class="form-control" (keyup)="0">
+
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default" title="ახალი როლი" data-toggle="modal" data-target="#new-role-modal">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </span>
+</div>
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let role of roleService.roles" (click)="onSelect(role)" [class.active]="isSelected(role)">
+
+  <a class="list-group-item" *ngFor="let role of roleService.roles | nameFilter:nameFilterInput.value" (click)="onSelect(role)" [class.active]="isSelected(role)">
+
     <h4 class="list-group-item-heading">{{role.name}}</h4>
     <p class="list-group-item-text">{{role.description}}</p>
   </a>
 </div>
+
+
+<app-modal modalId="new-role-modal">
+  <app-role-details [currentRole]="newRole"></app-role-details>
+</app-modal>

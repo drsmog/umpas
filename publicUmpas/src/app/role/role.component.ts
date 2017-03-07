@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleService } from './role.service';
+import { RoleService } from './service/role.service';
 
 @Component({
   selector: 'app-role',
@@ -7,8 +7,6 @@ import { RoleService } from './role.service';
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {
-
-  newRole:any={};
 
   constructor(private roleService: RoleService) { }
 

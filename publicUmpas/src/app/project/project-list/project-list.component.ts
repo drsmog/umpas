@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../service/project.service';
 
 @Component({
   selector: 'app-project-list',
@@ -8,10 +8,12 @@ import { ProjectService } from '../project.service';
 })
 export class ProjectListComponent implements OnInit {
 
+  newProject: any = {};
+
   constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
-    this.projectService.loadProjectList();
+    this.projectService.fetchProjects();
   }
 
   onSelect(project) {
@@ -21,6 +23,11 @@ export class ProjectListComponent implements OnInit {
 
   onSave(project) {
     this.projectService.save(project);
+  }
+
+  isSelected(project) {
+    if (!this.projectService.selectedProject) return false;
+    return this.projectService.selectedProject.id === project.id;
   }
 
 
