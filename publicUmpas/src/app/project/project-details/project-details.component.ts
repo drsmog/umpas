@@ -13,13 +13,14 @@ export class ProjectDetailsComponent implements OnInit {
 
   private projectItem: any = {};
 
-  constructor(private projectService:ProjectService) { }
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
   }
 
   onSave() {
-    this.projectService.save(this.currentProjectItem);
+    this.projectService.save(this.currentProjectItem)
+      .then(() => { this.currentProjectItem = {} });
   }
 
 

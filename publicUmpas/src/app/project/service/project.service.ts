@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProjectApiService } from './project-api.service';
-
+import { NotificationsService } from '../../core/notification/notifications.service';
 
 
 @Injectable()
@@ -13,11 +13,11 @@ export class ProjectService {
     return this.projects;
   }
 
-  constructor(private api:ProjectApiService) { }
+  constructor(private api: ProjectApiService,private notifications:NotificationsService) { }
 
-  fetchProjects(){
+  fetchProjects() {
     return this.api.getProjects()
-    .then((list)=>this.projects=list);
+      .then((list) => this.projects = list);
   }
 
   save(project) {
@@ -28,18 +28,21 @@ export class ProjectService {
       let projectItmeIndex = this.projects.findIndex((item) => item.id === project.id);
       if (projectItmeIndex === -1) return;
       Object.assign(this.projects[projectItmeIndex], project);
+      return;
     };
 
     let pushProject = (savedProject) => {
-      this.projects.push(savedProject);
+      this.notifications.addNotification('hey','success',5000);
+      return this.projects.push(savedProject);
     };
 
     if (isEditMode(project))
       return this.api.putProject(project).
         then(refreshProject.bind(this, project));
 
-    this.api.postProject(project)
+    return this.api.postProject(project)
       .then(pushProject);
+
 
   }
 

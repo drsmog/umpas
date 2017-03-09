@@ -21,10 +21,6 @@ export class ProjectListComponent implements OnInit {
 
   }
 
-  onSave(project) {
-    this.projectService.save(project);
-  }
-
   isSelected(project) {
     if (!this.projectService.selectedProject) return false;
     return this.projectService.selectedProject.id === project.id;

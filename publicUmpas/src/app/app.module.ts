@@ -7,6 +7,12 @@ import { InMemoryDataService } from './in-memory-data.service';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { AlertModule } from 'ng2-bootstrap';
+import { TabsModule } from 'ng2-bootstrap/tabs';
+import { AccordionModule } from 'ng2-bootstrap/accordion';
+
+
+
 //shared service
 import { NotificationsService} from './core/notification/notifications.service';
 
@@ -47,7 +53,11 @@ import { NameFilterPipe } from './core/pipe/name-filter.pipe';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService)
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    AlertModule.forRoot(),
+    TabsModule.forRoot(),
+    AccordionModule.forRoot()
+
   ],
   providers: [ProjectService, ProjectApiService, RoleService, RoleApiService, NotificationsService],
   bootstrap: [AppComponent]
