@@ -5,6 +5,7 @@ import { RoleApiService } from './role-api.service';
 export class RoleService {
   roles: any = [];
   selectedRole: any;
+  selectedRoleActions: any=[];
 
   constructor(private api: RoleApiService) { }
 

@@ -16,28 +16,111 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
 
     let roles = [{
+
       id: 1,
       name: 'მომხმარებელი',
-      description: 'გააჩნიათ დათვარიელების უფლება'
+      description: 'გააჩნიათ დათვარიელების უფლება',
+
     }, {
+
         id: 2,
         name: 'ოპერატორი',
-        description: 'გააჩნიათ ინფორმაციის შეყვანის უფლება'
+        description: 'გააჩნიათ ინფორმაციის შეყვანის უფლება',
+
       }, {
         id: 3,
         name: 'ინსპექტირება',
-        description: 'მხოლოდ სტატისტიკა'
+        description: 'მხოლოდ სტატისტიკა',
+
       }, {
         id: 4,
         name: 'ადმინისტრატორი',
-        description: 'ადმინისტრირების ფუნქციონალი ყველაფერთან ერთად'
+        description: 'ადმინისტრირების ფუნქციონალი ყველაფერთან ერთად',
+
       }, {
         id: 5,
         name: 'პროვაიდერი',
-        description: 'წყარო'
+        description: 'წყარო',
+
       }];
 
-    return { projects,roles };
+    let actions = [{
+      roleId: 5,
+      id: 1,
+      pattern: "/api/contracts/*",
+      name: "contracts",
+      verbDelete: false,
+      verbPost: true,
+      verbPut: false,
+      verbGet: true
+    }, {
+        roleId: 5,
+        id: 2,
+        pattern: "/api/vouchers/sync/*",
+        name: "vouchers",
+        verbDelete: false,
+        verbPost: false,
+        verbPut: false,
+        verbGet: true
+      }, {
+        roleId: 5,
+        id: 3,
+        pattern: "/api/users/fullname/*",
+        name: "users",
+        verbDelete: false,
+        verbPost: false,
+        verbPut: false,
+        verbGet: true
+      }, {
+        roleId: 5,
+        id: 4,
+        pattern: "/api/visits/*",
+        name: "visits",
+        verbDelete: false,
+        verbPost: true,
+        verbPut: true,
+        verbGet: true
+      }, {
+        roleId: 5,
+        id: 5,
+        pattern: "/um/resetpass/*",
+        name: "um",
+        verbDelete: false,
+        verbPost: true,
+        verbPut: false,
+        verbGet: false
+      }, {
+        roleId: 4,
+        id: 6,
+        pattern: "/api/components/*",
+        name: "components",
+        verbDelete: false,
+        verbPost: false,
+        verbPut: false,
+        verbGet: true
+      }, {
+        roleId: 4,
+        id: 7,
+        pattern: "/api/utils/loggedin/*",
+        name: "login",
+        verbDelete: false,
+        verbPost: false,
+        verbPut: true,
+        verbGet: false
+      }, {
+        roleId: 4,
+        id: 8,
+        pattern: "/api/utils/loggedout/*",
+        name: "logout",
+        verbDelete: false,
+        verbPost: false,
+        verbPut: true,
+        verbGet: false
+      }];
+
+
+
+    return { projects, roles, actions };
   }
 
 }

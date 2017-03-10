@@ -1,0 +1,31 @@
+<div class="container-fluid">
+
+  <div class="form-group">
+    <label>დასახელება</label>
+    <input type="text" class="form-control" placeholder="როლი" [(ngModel)]="currentAction.pattern">
+  </div>
+
+  <div class="well">
+    <p>
+      <label class="verb-label">GET</label>
+      <input type="checkbox" [(ngModel)]="currentAction.verbGet">
+    </p>
+    <p>
+      <label class="verb-label">POST</label>
+      <input type="checkbox" [(ngModel)]="currentAction.verbPost">
+    </p>
+    <p>
+      <label class="verb-label">PUT</label>
+      <input type="checkbox" [(ngModel)]="currentAction.verbPut">
+    </p>
+    <p>
+      <label class="verb-label">DELETE</label>
+      <input type="checkbox" [(ngModel)]="currentAction.verbDelete">
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSave()">შენახვა</button>
+  </div>
+
+</div>
