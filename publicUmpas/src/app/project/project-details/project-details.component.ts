@@ -19,8 +19,8 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   onSave() {
-    this.projectService.save(this.currentProjectItem)
-      .then(() => { this.currentProjectItem = {} });
+    this.projectService.save(this.currentProjectItem);
+
   }
 
 

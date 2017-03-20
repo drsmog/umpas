@@ -2,14 +2,14 @@
 <div class="container-fluid">
 
   <div class="form-group">
-    <label>დასახელება</label>
-    <input type="text" class="form-control" placeholder="როლი" [(ngModel)]="currentRole.name">
-    <label>აღწერა</label>
-    <input type="text" class="form-control" placeholder="აღწერა" [(ngModel)]="currentRole.description">
+    <label>Role Name</label>
+    <input type="text" class="form-control" placeholder="Role Name" [(ngModel)]="currentRole.name">
+    <label>Description</label>
+    <input type="text" class="form-control" placeholder="Short Description" [(ngModel)]="currentRole.description">
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSave()">შენახვა</button>
+    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSave()">Save</button>
   </div>
 
 </div>

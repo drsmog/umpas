@@ -17,7 +17,8 @@ export class RoleDetailsComponent implements OnInit {
   }
 
   onSave(){
-    this.roleService.save(this.currentRole);
+    this.roleService.save(this.currentRole)
+    .then(()=>console.table(this.roleService.roles));
   }
 
 

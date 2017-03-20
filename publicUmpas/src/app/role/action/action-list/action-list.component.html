@@ -3,7 +3,7 @@
   <input #nameFilterInput type="text" class="form-control" (keyup)="0" placeholder="Filter by name">
 
   <span class="input-group-btn">
-    <button type="button" class="btn btn-default" title="ახალი როლი" data-toggle="modal" data-target="#new-role-modal">
+    <button type="button" class="btn btn-default" title="ახალი როლი" data-toggle="modal" data-target="#new-action-modal">
       <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
   </span>
@@ -19,3 +19,8 @@
     <app-action-details [currentAction]=action></app-action-details>
   </accordion-group>
 </accordion>
+
+
+<app-modal modalId="new-action-modal">
+  <app-action-details [currentAction]=newAction></app-action-details>
+</app-modal>

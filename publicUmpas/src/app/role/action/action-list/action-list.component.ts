@@ -8,13 +8,15 @@ import { ActionService } from '../service/action.service';
 })
 export class ActionListComponent implements OnInit {
 
-  constructor(private actionService:ActionService) { }
+  newAction: any={};
+
+  constructor(private actionService: ActionService) { }
 
   ngOnInit() {
 
   }
 
-  onRemoveAction(event,action){
+  onRemoveAction(event, action) {
     this.actionService.removeActionOfRole(action);
     event.stopPropagation();
   }

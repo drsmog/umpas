@@ -18,7 +18,9 @@ export class RoleService {
 
     let isEditMode = (role) => (role.id != null);
 
-    let pushRole = (role) => { this.roles.push(role) };
+    let pushRole = (role) => {
+      this.roles.push(role)
+     };
 
     let refreshRole = (role) => {
       let roleIndex = this.roles.findIndex((item) => item.id === role.id);

@@ -14,11 +14,13 @@ export class ActionService {
   }
 
   removeActionOfRole(action) {
-    //TODO call delete
+    this.api.deleteAction(action.roleId, action.id)
+      .then((result) => {
+        let index = this.actions.findIndex((item) => item.id === action.id);
+        this.actions.splice(index, 1);
+        this.actions = this.actions.slice();
+      });
 
-     let index = this.actions.findIndex((item)=>item.id===action.id);
-     this.actions.splice(index,1);
-     this.actions = this.actions.slice();
 
 
   }

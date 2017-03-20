@@ -1,8 +1,13 @@
-<div class="container-fluid">
+<div role="form" class="container-fluid form-horizontal">
 
   <div class="form-group">
-    <label>დასახელება</label>
-    <input type="text" class="form-control" placeholder="როლი" [(ngModel)]="currentAction.pattern">
+    <label>Action Name</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentAction.name">
+  </div>
+
+  <div class="form-group">
+    <label>URL pattern</label>
+    <input type="text" class="form-control" placeholder="Action Pattern" [(ngModel)]="currentAction.pattern">
   </div>
 
   <div class="well">
