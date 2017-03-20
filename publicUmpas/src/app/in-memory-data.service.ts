@@ -7,7 +7,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
     let projects = [
-      { id: 1, name: 'project 1', description: 'desc 1' },
+      { id: 1, name: 'project 1 - change', description: 'desc 1' },
       { id: 2, name: 'project 2', description: 'desc 2' },
       { id: 3, name: 'project 3', description: 'desc 3' },
       { id: 4, name: 'project 4', description: 'desc 4' },
