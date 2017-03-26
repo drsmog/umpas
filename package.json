@@ -23,5 +23,9 @@
     "config": "1.25.1",
     "express": "4.14.1",
     "log4js": "1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-google": "^0.7.1"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "extends": ["eslint:recommended", "google"],
+  "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+
+    },
+  "rules": {
+    "new-cap": 0,
+    "linebreak-style": 0,
+    "no-undef": 0,
+    "padded-blocks": ["error", "always"]
+
+  }
+}
