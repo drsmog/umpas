@@ -9,15 +9,16 @@
   </span>
 </div>
 <div class="list-group">
-
   <a class="list-group-item" *ngFor="let role of roleService.roles | nameFilter:nameFilterInput.value" (click)="onSelect(role)" [class.active]="isSelected(role)">
-
-    <h4 class="list-group-item-heading">{{role.name}}</h4>
+    <h4 class="list-group-item-heading">
+      <button class="btn btn-danger circle-list-button" (click)="onRemoveRole($event,role)"><i class="fa fa-trash fa-fw circle-button-icon"></i></button>
+      {{role.name}}
+    </h4>
     <p class="list-group-item-text">{{role.description}}</p>
   </a>
 </div>
 
 
 <app-modal modalId="new-role-modal">
-  <app-role-details [currentRole]="newRole"></app-role-details>
+  <app-role-details [currentRole]="newRole" (saved)="onSaved($event)"></app-role-details>
 </app-modal>

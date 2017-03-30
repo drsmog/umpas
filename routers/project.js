@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 router.get('/', function(req, res, next) {
 
+
     let projects = [{
             id: 1,
             name: 'dayCenter',
@@ -29,13 +30,21 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  return res.send({success: true, data: {id: 5}});
+    return res.send({
+        success: true,
+        data: {
+            id: 5,
+        },
+    });
 
 });
 
 router.put('/', function(req, res, next) {
 
-  return res.send({success: true, data: {}});
+    return res.send({
+        success: true,
+        data: {},
+    });
 
 });
 

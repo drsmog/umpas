@@ -37,5 +37,11 @@ export class ProjectApiService {
 
   }
 
+  deleteProject(project){
+    return this.http.delete(
+      `${this.url}/${project.id}`,
+      { headers: this.headers }).toPromise();
+  }
+
 
 }

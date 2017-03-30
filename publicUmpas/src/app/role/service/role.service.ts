@@ -5,7 +5,7 @@ import { RoleApiService } from './role-api.service';
 export class RoleService {
   roles: any = [];
   selectedRole: any;
-  selectedRoleActions: any=[];
+  selectedRoleActions: any = [];
 
   constructor(private api: RoleApiService) { }
 
@@ -20,7 +20,7 @@ export class RoleService {
 
     let pushRole = (role) => {
       this.roles.push(role)
-     };
+    };
 
     let refreshRole = (role) => {
       let roleIndex = this.roles.findIndex((item) => item.id === role.id);
@@ -33,6 +33,16 @@ export class RoleService {
     }
     return this.api.postRole(role).then(pushRole);
 
+  }
+
+  removeRole(role) {
+    return this.api.deleteRole(role).then(() => {
+      let index = this.roles.findIndex((item) => item.id === role.id);
+      if (index === -1) return;
+      this.roles.splice(index, 1);
+      this.roles = this.roles.slice();
+      this.selectedRole = null;
+    });
   }
 
 

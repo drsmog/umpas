@@ -18,12 +18,20 @@ export class ProjectListComponent implements OnInit {
 
   onSelect(project) {
     this.projectService.selectedProject = Object.assign({}, project);
-
   }
 
   isSelected(project) {
     if (!this.projectService.selectedProject) return false;
     return this.projectService.selectedProject.id === project.id;
+  }
+
+  onSaved(project) {
+    this.newProject = {};
+  }
+
+  onRemoveProject(event, project) {
+    this.projectService.removeProject(project);
+    event.stopPropagation();
   }
 
 

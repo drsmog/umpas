@@ -28,4 +28,13 @@ export class RoleListComponent implements OnInit {
     return this.roleService.selectedRole.id === role.id;
   }
 
+  onSaved(role) {
+    this.newRole = {};
+  }
+
+  onRemoveRole(event, role) {
+    this.roleService.removeRole(role);
+    event.stopPropagation();
+  }
+
 }

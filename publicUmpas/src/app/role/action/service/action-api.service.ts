@@ -22,23 +22,24 @@ export class ActionApiService {
       .then((result) => result.json().data);
   }
 
-  // postActions(action,role) {
-  //   let requestUrl =`${this.url}/?roleId=${roleId}`;
-  //   return this.http.post(requestUrl,
-  //     JSON.stringify(action),
-  //     { headers: this.headers }).toPromise()
-  //     .then((result) => result.json().data);
-  // }
+  postAction(action,roleId) {
+    let requestUrl =`${this.url}/?roleId=${roleId}`;
+    return this.http.post(requestUrl,
+      JSON.stringify(action),
+      { headers: this.headers }).toPromise()
+      .then((result) => result.json().data);
+  }
 
 
 
-  // putons(action) {
-  //   return this.http.put(
-  //     `${this.url}/${action.id}`,
-  //     JSON.stringify(action),
-  //     { headers: this.headers }).toPromise();
-  //
-  // }
+  putAction(action,roleId) {
+    let requestUrl =`${this.url}/${action.id}?roleId=${roleId}`;
+    return this.http.put(
+      requestUrl,
+      JSON.stringify(action),
+      { headers: this.headers }).toPromise();
+
+  }
 
   deleteAction(roleId, actionId) {
     let requestUrl = `${this.url}/${actionId}/?roleId=${roleId}`;

@@ -33,4 +33,10 @@ export class RoleApiService {
 
   }
 
+  deleteRole(role) {
+    return this.http.delete(
+      `${this.url}/${role.id}`,
+      { headers: this.headers }).toPromise();
+  }
+
 }

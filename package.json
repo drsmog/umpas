@@ -26,6 +26,6 @@
   },
   "devDependencies": {
     "eslint": "^3.18.0",
-    "eslint-config-google": "^0.7.1"
+    "eslint-config-ssa": "^1.0.0"
   }
 }

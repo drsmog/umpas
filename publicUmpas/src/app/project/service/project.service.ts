@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProjectApiService } from './project-api.service';
-import { NotificationsService } from '../../core/notification/notifications.service';
+
 
 
 @Injectable()
@@ -13,7 +13,7 @@ export class ProjectService {
     return this.projects;
   }
 
-  constructor(private api: ProjectApiService,private notifications:NotificationsService) { }
+  constructor(private api: ProjectApiService) { }
 
   fetchProjects() {
     return this.api.getProjects()
@@ -32,8 +32,8 @@ export class ProjectService {
     };
 
     let pushProject = (savedProject) => {
-      this.notifications.addNotification('hey','success',5000);
-      return this.projects.push(savedProject);
+      this.projects.push(savedProject);
+      return savedProject;
     };
 
     if (isEditMode(project))
@@ -46,5 +46,16 @@ export class ProjectService {
 
   }
 
+  removeProject(project) {
+    return this.api.deleteProject(project)
+      .then(() => {
+        let index = this.projects.findIndex((item) => item.id === project.id);
+        if (index === -1) return;
+        this.projects.splice(index, 1);
+        this.projects = this.projects.slice();
+        this.selectedProject = null;
+      });
+
+  }
 
 }

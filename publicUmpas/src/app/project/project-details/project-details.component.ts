@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../service/project.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { ProjectService } from '../service/project.service';
 })
 export class ProjectDetailsComponent implements OnInit {
 
-
   @Input() currentProjectItem: any;
+  @Output() saved: EventEmitter<any> = new EventEmitter();
 
   private projectItem: any = {};
 
@@ -19,7 +19,8 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   onSave() {
-    this.projectService.save(this.currentProjectItem);
+    this.projectService.save(this.currentProjectItem)
+      .then((project) => this.saved.emit(project));
 
   }
 

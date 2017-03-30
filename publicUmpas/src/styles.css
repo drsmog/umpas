@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.circle-list-button {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  position: relative;
+}
+
+i.circle-button-icon {
+  position: absolute;
+  top: 42%;
+  left: 47%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  display: block;
+
+}
