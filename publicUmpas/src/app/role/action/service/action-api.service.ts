@@ -22,8 +22,8 @@ export class ActionApiService {
       .then((result) => result.json().data);
   }
 
-  postAction(action,roleId) {
-    let requestUrl =`${this.url}/?roleId=${roleId}`;
+  postAction(action, roleId) {
+    let requestUrl = `${this.url}/?roleId=${roleId}`;
     return this.http.post(requestUrl,
       JSON.stringify(action),
       { headers: this.headers }).toPromise()
@@ -32,8 +32,8 @@ export class ActionApiService {
 
 
 
-  putAction(action,roleId) {
-    let requestUrl =`${this.url}/${action.id}?roleId=${roleId}`;
+  putAction(action, roleId) {
+    let requestUrl = `${this.url}/${action.id}?roleId=${roleId}`;
     return this.http.put(
       requestUrl,
       JSON.stringify(action),

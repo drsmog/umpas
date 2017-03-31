@@ -1,16 +1,18 @@
 <div class="container-fluid">
 
     <div class="form-group">
-      <label>პროექტის სახელი :</label>
-      <input type="text" class="form-control" placeholder="პროექტი" [(ngModel)]="currentProjectItem.name">
-      <label>აღწერა :</label>
-      <input type="text" class="form-control" placeholder="აღწერა" [(ngModel)]="currentProjectItem.description">
-      <label>მონაცემთა წყარო (მისამართი) :</label>
-      <input type="text" class="form-control" placeholder="წყარო" [(ngModel)]="currentProjectItem.sourceDataBaseUrl">
+      <label>Project Name :</label>
+      <input type="text" class="form-control" placeholder="Project Name" [(ngModel)]="currentProjectItem.name">
+      <label>Description :</label>
+      <input type="text" class="form-control" placeholder="Description" [(ngModel)]="currentProjectItem.description">
+      <label>Umpack Client Url :</label>
+      <input type="text" class="form-control" placeholder="Umpack Client Url" [(ngModel)]="currentProjectItem.sourceDataBaseUrl">
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSave()">შენახვა</button>
+      <button type="button" class="btn btn-success btn-circle btn-lg" data-dismiss="modal" (click)="onSave()" title="Save Project">
+        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+      </button>
     </div>
 
 </div>

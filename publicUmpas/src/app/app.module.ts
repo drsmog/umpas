@@ -10,15 +10,16 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AlertModule } from 'ng2-bootstrap';
 import { TabsModule } from 'ng2-bootstrap/tabs';
 import { AccordionModule } from 'ng2-bootstrap/accordion';
+import { BsDropdownModule } from 'ng2-bootstrap/dropdown';
 
-//pipes
+// pipes
 import { NameFilterPipe } from './core/pipe/name-filter.pipe';
 
 
-//shared service
+// shared service
 import { NotificationsService} from './core/notification/notifications.service';
 
-//shared core components
+// shared core components
 import { ModalComponent } from './core/modal/modal.component';
 import { NotificationComponent } from './core/notification/notification.component';
 
@@ -66,7 +67,8 @@ import { ActionApiService } from './role/action/service/action-api.service';
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    BsDropdownModule.forRoot()
 
   ],
   providers: [

@@ -8,7 +8,7 @@ import { ActionService } from '../service/action.service';
 })
 export class ActionListComponent implements OnInit {
 
-  newAction: any={};
+  newAction: any = {};
 
   constructor(private actionService: ActionService) { }
 
@@ -19,6 +19,10 @@ export class ActionListComponent implements OnInit {
   onRemoveAction(event, action) {
     this.actionService.removeActionOfRole(action);
     event.stopPropagation();
+  }
+
+  onSaved() {
+    this.newAction = {};
   }
 
 }

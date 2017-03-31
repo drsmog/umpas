@@ -24,7 +24,9 @@ export class RoleListComponent implements OnInit {
   }
 
   isSelected(role) {
-    if (!this.roleService.selectedRole) return false;
+    if (!this.roleService.selectedRole) {
+      return false;
+    }
     return this.roleService.selectedRole.id === role.id;
   }
 

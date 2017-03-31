@@ -11,17 +11,14 @@
 <accordion>
   <accordion-group *ngFor="let action of actionService.actions | nameFilter:nameFilterInput.value" #group>
     <div accordion-heading>
-      <button class="btn btn-danger circle-list-button" (click)="onRemoveAction($event,action)"><i class="fa fa-trash fa-fw circle-button-icon"></i></button>
-      
-      {{action.name}}
+      <button class="btn btn-danger btn-circle" (click)="onRemoveAction($event,action)"><i class="fa fa-trash fa-fw"></i></button> {{action.name}}
       <i class="pull-right float-xs-right fa" [ngClass]="{'fa-chevron-down': group?.isOpen, 'fa-chevron-right': !group?.isOpen}"></i>
-
     </div>
     <app-action-details [currentAction]=action></app-action-details>
   </accordion-group>
 </accordion>
 
 
-<app-modal modalId="new-action-modal">
-  <app-action-details [currentAction]=newAction></app-action-details>
+<app-modal modalId="new-action-modal" headerText="Action Management">
+  <app-action-details [currentAction]=newAction (saved)="onSaved(action)"></app-action-details>
 </app-modal>

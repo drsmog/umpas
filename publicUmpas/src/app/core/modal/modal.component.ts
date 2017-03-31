@@ -7,6 +7,7 @@ import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @Input() modalId:string;
+  @Input() headerText:string;
 
   @Output() save = new EventEmitter();
 
@@ -16,7 +17,7 @@ export class ModalComponent implements OnInit {
   }
 
   onClose() {
-    
+
   }
 
 }

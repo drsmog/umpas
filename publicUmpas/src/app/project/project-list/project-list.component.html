@@ -3,7 +3,7 @@
     <a class="list-group-item" *ngFor="let project of projectService.projects" [class.active]="isSelected(project)" (click)="onSelect(project)">
 
       <h4 class="list-group-item-heading">
-        <button class="btn btn-danger circle-list-button" (click)="onRemoveProject($event,project)"><i class="fa fa-trash fa-fw circle-button-icon"></i></button>
+        <button class="btn btn-danger btn-circle" (click)="onRemoveProject($event,project)" title="Delete Project"><i class="fa fa-trash fa-fw"></i></button>
         {{project.name}}
       </h4>
       <p class="list-group-item-text">{{project.description}}</p>
@@ -11,12 +11,12 @@
   </div>
 
   <div class="modal-footer project-list-actions">
-    <button type="button" class="btn btn-primary circle-list-button" title="ახალი პროექტის დამატება" data-toggle="modal" data-target="#new-project-modal">
-      <i class="fa fa-plus circle-button-icon" aria-hidden="true"></i>
+    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Add New Project" data-toggle="modal" data-target="#new-project-modal">
+      <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
   </div>
 </div>
 
-<app-modal modalId="new-project-modal">
+<app-modal modalId="new-project-modal" headerText="Project Management">
   <app-project-details [currentProjectItem]="newProject" (saved)="onSaved($event)"></app-project-details>
 </app-modal>
