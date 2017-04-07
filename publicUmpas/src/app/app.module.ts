@@ -7,11 +7,11 @@ import { InMemoryDataService } from './in-memory-data.service';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-import { AlertModule } from 'ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap/tabs';
-import { AccordionModule } from 'ng2-bootstrap/accordion';
-import { BsDropdownModule } from 'ng2-bootstrap/dropdown';
-import { ModalModule } from 'ng2-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // pipes
 import { NameFilterPipe } from './core/pipe/name-filter.pipe';
