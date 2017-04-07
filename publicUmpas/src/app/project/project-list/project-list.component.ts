@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ProjectService } from '../service/project.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { ProjectService } from '../service/project.service';
 })
 export class ProjectListComponent implements OnInit {
 
+  @ViewChild('projectModal') public projectModal: ModalDirective;
   newProject: any = {};
 
   constructor(private projectService: ProjectService) { }
@@ -21,12 +23,15 @@ export class ProjectListComponent implements OnInit {
   }
 
   isSelected(project) {
-    if (!this.projectService.selectedProject) return false;
+    if (!this.projectService.selectedProject) {
+      return false;
+    }
     return this.projectService.selectedProject.id === project.id;
   }
 
   onSaved(project) {
     this.newProject = {};
+    this.projectModal.hide();
   }
 
   onRemoveProject(event, project) {

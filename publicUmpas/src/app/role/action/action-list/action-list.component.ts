@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ActionService } from '../service/action.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { ActionService } from '../service/action.service';
 })
 export class ActionListComponent implements OnInit {
 
+  @ViewChild('actionModal') public actionModal: ModalDirective;
   newAction: any = {};
 
   constructor(private actionService: ActionService) { }
@@ -23,6 +25,7 @@ export class ActionListComponent implements OnInit {
 
   onSaved() {
     this.newAction = {};
+    this.actionModal.hide();
   }
 
 }

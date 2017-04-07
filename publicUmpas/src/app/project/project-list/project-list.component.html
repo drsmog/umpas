@@ -11,12 +11,26 @@
   </div>
 
   <div class="modal-footer project-list-actions">
-    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Add New Project" data-toggle="modal" data-target="#new-project-modal">
+    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Add New Project" (click)="projectModal.show()">
       <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
   </div>
 </div>
 
-<app-modal modalId="new-project-modal" headerText="Project Management">
-  <app-project-details [currentProjectItem]="newProject" (saved)="onSaved($event)"></app-project-details>
-</app-modal>
+
+<div class="modal fade" bsModal #projectModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="projectModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">New Project</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="projectModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-project-details [currentProjectItem]="newProject" (saved)="onSaved($event)"></app-project-details>
+      </div>
+    </div>
+  </div>
+</div>

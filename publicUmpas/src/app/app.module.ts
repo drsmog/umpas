@@ -11,6 +11,7 @@ import { AlertModule } from 'ng2-bootstrap';
 import { TabsModule } from 'ng2-bootstrap/tabs';
 import { AccordionModule } from 'ng2-bootstrap/accordion';
 import { BsDropdownModule } from 'ng2-bootstrap/dropdown';
+import { ModalModule } from 'ng2-bootstrap/modal';
 
 // pipes
 import { NameFilterPipe } from './core/pipe/name-filter.pipe';
@@ -20,7 +21,7 @@ import { NameFilterPipe } from './core/pipe/name-filter.pipe';
 import { NotificationsService} from './core/notification/notifications.service';
 
 // shared core components
-import { ModalComponent } from './core/modal/modal.component';
+
 import { NotificationComponent } from './core/notification/notification.component';
 
 import { AppComponent } from './app.component';
@@ -47,7 +48,6 @@ import { ActionApiService } from './role/action/service/action-api.service';
 @NgModule({
   declarations: [
     AppComponent,
-    ModalComponent,
     ProjectDetailsComponent,
     NotificationComponent,
     ProjectListComponent,
@@ -68,7 +68,8 @@ import { ActionApiService } from './role/action/service/action-api.service';
     AlertModule.forRoot(),
     TabsModule.forRoot(),
     AccordionModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
 
   ],
   providers: [
