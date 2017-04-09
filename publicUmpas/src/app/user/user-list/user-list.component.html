@@ -1,0 +1,9 @@
+<div class="list-group">
+  <a class="list-group-item" *ngFor="let user of userService.users" (click)="onSelect(user)" [class.active]="isSelected(user)">
+    <h4 class="list-group-item-heading">
+      <button class="btn btn-danger btn-circle" (click)="onRemoveUser($event,user)"><i class="fa fa-trash fa-fw"></i></button>
+      {{user.userName}}
+    </h4>
+    <p class="list-group-item-text">{{user.firstName}}</p>
+  </a>
+</div>

@@ -44,6 +44,12 @@ import { ActionDetailsComponent } from './role/action/action-details/action-deta
 import { ActionService } from './role/action/service/action.service';
 import { ActionApiService } from './role/action/service/action-api.service';
 
+import { UserComponent } from './user/user.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserService } from './user/service/user.service';
+import { UserApiService } from './user/service/user-api.service';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +64,10 @@ import { ActionApiService } from './role/action/service/action-api.service';
     NameFilterPipe,
     ActionComponent,
     ActionListComponent,
-    ActionDetailsComponent
+    ActionDetailsComponent,
+    UserComponent,
+    UserListComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -79,8 +88,9 @@ import { ActionApiService } from './role/action/service/action-api.service';
     RoleApiService,
     NotificationsService,
     ActionApiService,
-    ActionService
-
+    ActionService,
+    UserService,
+    UserApiService
   ],
   bootstrap: [AppComponent]
 })

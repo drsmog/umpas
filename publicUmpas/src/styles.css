@@ -16,3 +16,8 @@
   line-height: 1.33;
   border-radius: 25px;
 }
+
+div[accordion-heading] > button,
+.list-group-item-heading > button {
+  float: right;
+}
