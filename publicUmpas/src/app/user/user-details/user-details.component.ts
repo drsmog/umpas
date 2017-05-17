@@ -20,4 +20,15 @@ export class UserDetailsComponent implements OnInit, OnChanges {
       this.userService.mergeUserRoleList();
     }
 
+    onSave() {
+
+      this.currentUser.roles = this.userService.roleList.filter(
+        role => role.checked
+      ).map(
+        role => role.name
+      );
+
+      this.userService.update(this.currentUser);
+    }
+
 }
