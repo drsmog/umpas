@@ -11,7 +11,7 @@ export class NotificationsService {
 
     let notification = {
       id: new Date().getTime().toString() + this.notifications.length.toString(),
-      message: notificationText + this.notifications.length.toString(),
+      message: notificationText + ' ' + this.notifications.length.toString(),
       type: `alert-${type}`
     };
 
