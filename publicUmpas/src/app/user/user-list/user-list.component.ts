@@ -36,4 +36,8 @@ export class UserListComponent implements OnInit {
 
   }
 
+  getUserNameField(item: any): string {
+    return item.userName;
+  }
+
 }
