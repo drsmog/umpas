@@ -32,6 +32,8 @@ export class UserListComponent implements OnInit {
 
     this.userService.removeUser(user);
 
+    event.stopPropagation();
+
   }
 
 }
