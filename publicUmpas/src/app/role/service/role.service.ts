@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { RoleApiService } from './role-api.service';
 
+import {NotificationsService} from '../../core/notification/notifications.service';
+
 @Injectable()
 export class RoleService {
     roles: any = [];
     selectedRole: any;
     selectedRoleActions: any = [];
+    timeOutMilliseconds = 4000;
 
-    constructor(private api: RoleApiService) { }
+    constructor(private api: RoleApiService, private notificationService: NotificationsService) { }
 
     fetchRoles() {
         return this.api.getRoles()
@@ -29,9 +32,11 @@ export class RoleService {
         };
 
         if (isEditMode(role)) {
-            return this.api.putRole(role).then(refreshRole.bind(this, role));
+            return this.api.putRole(role).then(refreshRole.bind(this, role))
+              .then(this.notifySuccess.bind(this, 'role updated'));
         }
-        return this.api.postRole(role).then(pushRole);
+        return this.api.postRole(role).then(pushRole)
+          .then(this.notifySuccess.bind(this, 'role created successfully'));
 
     }
 
@@ -42,7 +47,16 @@ export class RoleService {
             this.roles.splice(index, 1);
             this.roles = this.roles.slice();
             this.selectedRole = null;
-        });
+        })
+        .then(this.notifySuccess.bind(this, 'role removed successfully'));
+    }
+
+    notifySuccess(message) {
+      this.notificationService.addNotification(
+        message,
+        'success',
+        this.timeOutMilliseconds
+      );
     }
 
 
