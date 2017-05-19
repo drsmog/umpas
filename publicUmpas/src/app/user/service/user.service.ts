@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { UserApiService } from './user-api.service';
 import { RoleService } from '../../role/service/role.service';
 
+import { NotificationsService } from '../../core/notification/notifications.service';
+
 @Injectable()
 export class UserService {
 
   users: any = [];
   selectedUser: any;
   roleList: any;
+  timeOutMilliseconds = 4000;
 
-  constructor(private api: UserApiService, private roleService: RoleService) { }
+  constructor(private api: UserApiService, private roleService: RoleService, private notificationService: NotificationsService) { }
 
   fetchUsers() {
     return this.api.getUsers()
@@ -57,6 +60,9 @@ export class UserService {
         refreshUser(user);
 
         this.mergeUserRoleList();
+      })
+      .then(() => {
+        this.notificationService.addNotification('user updated', 'success', this.timeOutMilliseconds);
       });
   }
 
@@ -68,6 +74,9 @@ export class UserService {
 
         this.users.splice(index, 1);
         this.selectedUser = null;
+      })
+      .then(() => {
+        this.notificationService.addNotification('user removed', 'success', this.timeOutMilliseconds);
       });
   }
 }
