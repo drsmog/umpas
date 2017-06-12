@@ -1,30 +1,13 @@
 const router = require('express').Router();
 // const logger = require('../utils/logger').getLogger('app');
+const projectInteractor = require('../interactors/projectInteractor');
+const sendPromiseResult = require('../utils/responseSender');
 
 router.get('/', function(req, res, next) {
 
+    const promise = projectInteractor.getList();
 
-    let projects = [{
-            id: 1,
-            name: 'dayCenter',
-            description: 'baby care organizations',
-        }, {
-            id: 2,
-            name: 'high mountine',
-            description: 'Benefits for village doctors',
-        }, {
-            id: 3,
-            name: 'Help Desk',
-            description: 'ehealth internal helpdesk system',
-        },
-
-    ];
-
-
-    return res.send({
-        success: true,
-        data: projects,
-    });
+    sendPromiseResult(promise, req, res, next);
 
 });
 

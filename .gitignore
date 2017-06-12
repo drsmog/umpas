@@ -38,3 +38,9 @@ jspm_packages
 
 # vagrant
 .vagrant
+
+# hinters linters
+.jshintrc
+
+# tern
+.tern-project
