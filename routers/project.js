@@ -13,27 +13,19 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    return res.send({
-        success: true,
-        data: {
-            id: 5,
-        },
-    });
+    const promise = projectInteractor.addProject(req.body);
+
+    sendPromiseResult(promise, req, res, next);
 
 });
 
-router.put('/', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
 
-    return res.send({
-        success: true,
-        data: {},
-    });
+    const promise = projectInteractor.editProjectDetails(req.params.id, req.body);
 
-});
-
-router.get('/sdf', function(req, res, next) {
-
+    sendPromiseResult(promise, req, res, next);
 
 });
+
 
 module.exports = router;

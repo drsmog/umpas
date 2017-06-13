@@ -1,23 +1,23 @@
 const projectRepo = require('../infrastructure/projectsRepository');
 
-function getList() {
+exports.getList = function() {
   return projectRepo.find();
-}
+};
 
-function addProject(project) {
+exports.addProject = function(project) {
   return projectRepo.save(project)
-    .then(function (id) {
+    .then(function(id) {
       return projectRepo.getById(id);
     });
-}
+};
 
-function editProjectDetails(id, project) {
+exports.editProjectDetails = function(id, project) {
   if (!project.id) {
     project.id = id;
   }
 
   return projectRepo.update(project)
-    .then(function () {
+    .then(function() {
       return projectRepo.getById(id);
     });
-}
+};
