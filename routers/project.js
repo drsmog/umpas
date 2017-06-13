@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // const logger = require('../utils/logger').getLogger('app');
 const projectInteractor = require('../interactors/projectInteractor');
-const sendPromiseResult = require('../utils/responseSender');
+const sendPromiseResult = require('../utils/responseSender').sendPromiseResult;
 
 router.get('/', function(req, res, next) {
 

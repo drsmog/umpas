@@ -17,6 +17,7 @@ function sendPromiseResult(promise, req, res, next) {
         })
         .catch(next);
 }
+
 module.exports = {
     sendPromiseResult: sendPromiseResult
 };
