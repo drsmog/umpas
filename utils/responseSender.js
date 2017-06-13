@@ -1,3 +1,5 @@
+const RecordError = require('../exceptions/recordError');
+
 /**
  * [sendPromiseResult description]
  * @param  {Promise}   promise [description]
@@ -14,6 +16,9 @@ function sendPromiseResult(promise, req, res, next) {
               success: true,
               data: result
             });
+        })
+        .catch(RecordError,  function (error) {
+          res.status(400).json({message: error.message});
         })
         .catch(next);
 }
