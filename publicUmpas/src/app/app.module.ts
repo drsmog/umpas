@@ -73,7 +73,7 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    // InMemoryWebApiModule.forRoot(InMemoryDataService),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
     AccordionModule.forRoot(),

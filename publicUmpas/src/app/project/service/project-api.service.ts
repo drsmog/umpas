@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 export class ProjectApiService {
 
   private headers = new Headers({
-    'Content-type': 'application/json'
+    'Content-Type': 'application/json'
   });
 
   private url = 'api/projects';
@@ -23,7 +23,7 @@ export class ProjectApiService {
   postProject(project) {
     return this.http.post(
       this.url,
-      JSON.stringify(project),
+      project,
       { headers: this.headers }).toPromise()
       .then(response => response.json().data);
   }
@@ -31,7 +31,7 @@ export class ProjectApiService {
   putProject(project) {
     return this.http.put(
       `${this.url}/${project.id}`,
-      JSON.stringify(project),
+      project,
       { headers: this.headers }).toPromise();
 
 
