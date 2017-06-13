@@ -30,7 +30,7 @@ class MongoRepository {
 
     return this.modelClass.findOneAndUpdate({
       _id: record.id
-    }, recordToSave).exec();
+    }, record).exec();
 
   }
 
