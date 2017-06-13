@@ -27,5 +27,13 @@ router.put('/:id', function(req, res, next) {
 
 });
 
+router.delete('/:id', function (req, res, next) {
+
+    const promise = projectInteractor.removeProject(req.params.id);
+
+    sendPromiseResult(promise, req, res, next);
+
+});
+
 
 module.exports = router;

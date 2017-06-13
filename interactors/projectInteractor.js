@@ -21,3 +21,7 @@ exports.editProjectDetails = function(id, project) {
       return projectRepo.getById(id);
     });
 };
+
+exports.removeProject = function (id) {
+  return projectRepo.deleteById(id);
+};
