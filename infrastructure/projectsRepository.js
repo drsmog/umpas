@@ -4,4 +4,4 @@ const Repository = require('./reposiotry');
 
 const repo = new Repository(Project, []);
 
-return repo;
+module.exports = repo;
