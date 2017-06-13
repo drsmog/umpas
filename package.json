@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=dev&& node app.js",
+    "start": "set NODE_ENV=dev&& nodemon app.js -e js,json --ignore publicUmpas",
     "production": "set NODE_ENV=production&& node app.js"
   },
   "repository": {
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "eslint": "^3.18.0",
-    "eslint-config-ssa": "^1.0.0"
+    "eslint-config-ssa": "^1.0.0",
+    "nodemon": "^1.11.0"
   }
 }
