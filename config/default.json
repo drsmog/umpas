@@ -1,3 +1,4 @@
 {
-    "port": 4545
+    "port": 4545,
+    "mongoDatabase": "mongodb://localhost:27017/umpas"
 }

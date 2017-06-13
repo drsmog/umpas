@@ -1,8 +1,12 @@
 const express = require('express');
-const projectRouter = require('./routers/project');
 const config = require('config');
+const mongoose = require('mongoose');
+
+const projectRouter = require('./routers/project');
 
 var app = express();
+
+mongoose.connect(config.get('mongoDatabase'));
 
 if (!process.env.HOST_ON_IIS)
     process.env.PORT = config.get('port');
