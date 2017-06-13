@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/publicUmpas/dist'));
 app.use('/api/projects', projectRouter);
 
 app.get('*', function(req, res, next) {
-    res.sendfile('index.html');
+    res.sendFile('index.html', {root: './publicUmpas/dist'});
 });
 
 app.listen(process.env.PORT, function() {
