@@ -41,13 +41,14 @@ export class ProjectService {
     if (isEditMode(project)) {
       return this.api.putProject(project)
         .then(refreshProject.bind(this, project))
-        .then(this.notifySuccess.bind(this, 'project details updated successfully'));
+        .then(this.notifySuccess.bind(this, 'project details updated successfully'))
+        .catch(this.handleError.bind(this));
     }
 
     return this.api.postProject(project)
       .then(pushProject)
       .then(this.notifySuccess.bind(this, 'project added'))
-
+      .catch(this.handleError.bind(this));
 
   }
 
@@ -70,6 +71,14 @@ export class ProjectService {
       'success',
       this.timeOutMilliseconds
     );
+  }
+
+  handleError(error) {
+    if (error.status === 400) {
+      this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
+
+      throw error;
+    }
   }
 
 }
