@@ -11,8 +11,21 @@ const ProjectSchema = new Schema({
   name: String,
   description: String,
   url: String
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
-
+ProjectSchema.virtual('id')
+  .get(function () {
+    return this._id;
+  })
+  .set(function (value) {
+    this._id = value;
+  });
 
 module.exports = mongoose.model('Project', ProjectSchema);

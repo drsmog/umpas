@@ -9,35 +9,24 @@ class MongoRepository {
 
   save(record) {
     if (record instanceof this.modelClass) {
-      return record.save()
-        .then(function() {
-          return record._id;
-        });
+      return record.save();
     }
 
     let model = new this.modelClass(record);
 
-    return model.save()
-      .then(function() {
-        return model._id;
-      });
+    return model.save();
   }
 
   getById(id) {
     return this.modelClass.findOne({
       _id: id
-    }).exec()
-      .then(this._settedIdField);
+    }).exec();
   }
 
   update(record) {
     if (record instanceof this.modelClass) {
       return record.save();
     }
-
-    let recordToSave = _.omit(record, ['id']);
-
-    recordToSave._id = record.id;
 
     return this.modelClass.findOneAndUpdate({
       _id: record.id
@@ -52,8 +41,7 @@ class MongoRepository {
       .sort({
         createDate: -1
       })
-      .exec()
-      .then(this._returnModelsWithIdField.bind(this));
+      .exec();
   }
 
   find(queryObject) {
@@ -61,8 +49,7 @@ class MongoRepository {
       .sort({
         createDate: -1
       })
-      .exec()
-      .then(this._returnModelsWithIdField.bind(this));
+      .exec();
   }
 
   findOne(queryObject) {
@@ -70,8 +57,7 @@ class MongoRepository {
       .sort({
         createDate: -1
       })
-      .exec()
-      .then(this._settedIdField);
+      .exec();
   }
 
   deleteById(id) {
@@ -107,8 +93,7 @@ class MongoRepository {
       })
       .skip(offset)
       .limit(pageSize)
-      .exec()
-      .then(this._returnModelsWithIdField.bind(this));
+      .exec();
   }
 
   _hybridParametersObject(queryObject) {
@@ -132,16 +117,6 @@ class MongoRepository {
 
     return result;
 
-  }
-
-  _settedIdField(model) {
-    model.id = model._id;
-
-    return model;
-  }
-
-  _returnModelsWithIdField(models) {
-    return models.map(this._settedIdField);
   }
 }
 

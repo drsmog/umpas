@@ -1,7 +1,7 @@
 const projectRepo = require('../infrastructure/projectsRepository');
 
 exports.getList = function() {
-  return projectRepo.find();
+  return projectRepo.find({});
 };
 
 exports.addProject = function(project) {
