@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/drsmog/umpas#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "1.16.1",
     "config": "1.25.1",
     "express": "4.14.1",
