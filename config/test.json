@@ -1,0 +1,11 @@
+{
+  "umpackServer": {
+    "port": 4000,
+    "umpack": {
+      "mongodbConnectionString": "mongodb://localhost:27017/umpackServerTest",
+      "accessTokenSecret": "405zDAO2BRjrW42",
+      "passwordHashSecret": "HX4JSp4ApsQiRkc",
+      "accessTokenExpiresIn": "1h"
+    }
+  }
+}

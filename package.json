@@ -4,9 +4,10 @@
   "description": "decentralized user management central admin panel",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "set NODE_ENV=test&& mocha",
     "start": "set NODE_ENV=dev&& nodemon app.js -e js,json --ignore publicUmpas",
-    "production": "set NODE_ENV=production&& node app.js"
+    "production": "set NODE_ENV=production&& node app.js",
+    "coverage": "set NODE_ENV=test&& istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000"
   },
   "repository": {
     "type": "git",
@@ -28,8 +29,13 @@
     "mongoose": "^4.10.5"
   },
   "devDependencies": {
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
     "eslint": "^3.18.0",
     "eslint-config-ssa": "^1.0.0",
-    "nodemon": "^1.11.0"
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "umpack-express": "^0.5.0"
   }
 }
