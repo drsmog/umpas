@@ -1,11 +1,9 @@
 const express = require('express');
 const config = require('config');
 const bodyParser = require('body-parser');
-const umpack = require('umpack-express');
-
+const umpack = require('umpack-express')(config.get('umpackServer.umpack'));
 
 const app = express();
-
 
 
 app.use(bodyParser.json());
