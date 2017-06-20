@@ -10,7 +10,18 @@ mongoose.Promise = Promise;
 const ProjectSchema = new Schema({
   name: String,
   description: String,
-  url: String
+  url: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
 }, {
   toObject: {
     virtuals: true

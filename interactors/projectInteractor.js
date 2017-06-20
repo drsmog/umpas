@@ -8,7 +8,7 @@ exports.getList = function() {
 
 exports.addProject = function(project) {
   return Promise.try(function() {
-      validateOnClientUrl(project);
+      validate(project);
 
       return projectRepo.save(project);
     })
@@ -19,7 +19,7 @@ exports.addProject = function(project) {
 
 exports.editProjectDetails = function(id, project) {
   return Promise.try(function() {
-      validateOnClientUrl(project);
+      validate(project);
 
       if (!project.id) {
         project.id = id;
@@ -38,4 +38,12 @@ exports.removeProject = function(id) {
 
 function validateOnClientUrl(project) {
   if (!project.url) throw new RecordError('project url should not be empty');
+}
+
+function validate(project) {
+  validateOnClientUrl(project);
+
+  if(!project.username) throw new RecordError('project user\'s name should not be empty');
+
+  if(!project.password) throw new RecordError('project user\'s password should not be empty');
 }
