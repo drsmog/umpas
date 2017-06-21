@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const Promise = require('bluebird');
 
-Promise.config({warnings: false});
+Promise.config({
+  warnings: false
+});
 
 mongoose.Promise = Promise;
 
@@ -21,6 +23,10 @@ const ProjectSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  umBaseUrl: {
+    type: String,
+    default: '/um'
   }
 }, {
   toObject: {
@@ -32,11 +38,27 @@ const ProjectSchema = new Schema({
 });
 
 ProjectSchema.virtual('id')
-  .get(function () {
+  .get(function() {
     return this._id;
   })
-  .set(function (value) {
+  .set(function(value) {
     this._id = value;
   });
+
+ProjectSchema.virtual('umFullUrl')
+  .get(function() {
+    return this.url + formatBaseUrl(this.umBaseUrl);
+  });
+
+function formatBaseUrl(baseUrl) {
+  let result = baseUrl;
+
+  if (result[0] !== '/') result = '/' + result;
+
+  if (result[result.length - 1] === '/') result = result.slice(0, result.length -
+    1);
+
+  return result;
+}
 
 module.exports = mongoose.model('Project', ProjectSchema);
