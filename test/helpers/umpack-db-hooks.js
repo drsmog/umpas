@@ -3,11 +3,13 @@ const config = require('config');
 const Promise = require('bluebird');
 mongoose.Promise = Promise;
 
+const ObjectId = require('mongodb').ObjectID;
+
 const usersCollection = 'users';
 const rolesCollection = 'roleactions';
 const password = '123456';
 
-const actionId = new mongoose.ObjectID();
+const actionId = new ObjectId();
 
 const umpackConnection = mongoose.createConnection(config.get('umpackServer.umpack.mongodbConnectionString'));
 
