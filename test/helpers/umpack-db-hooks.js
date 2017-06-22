@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('config');
+const Promise = require('bluebird');
+mongoose.Promise = Promise;
 
 const usersCollection = 'users';
 const rolesCollection = 'roleactions';
@@ -7,8 +9,10 @@ const password = '123456';
 
 const actionId = new mongoose.ObjectID();
 
+const umpackConnection = mongoose.createConnection(config.get('umpackServer.umpack.mongodbConnectionString'));
+
 exports.insertRootUser = function () {
-  return mongoose.connection.db.collection(usersCollection)
+  return umpackConnection.db.collection(usersCollection)
     .insert({
       userName: 'root',
       password: password,
@@ -18,11 +22,11 @@ exports.insertRootUser = function () {
 };
 
 exports.truncateUsersCollection = function () {
-  return mongoose.connection.db.collection(usersCollection).remove();
+  return umpackConnection.db.collection(usersCollection).remove();
 };
 
 exports.insertAdminRole = function () {
-  return mongoose.connection.db.collection(rolesCollection)
+  return umpackConnection.db.collection(rolesCollection)
     .insert({
       name: 'admin',
       actions: [
@@ -40,5 +44,17 @@ exports.insertAdminRole = function () {
 };
 
 exports.truncateRolesCollection = function () {
-  return mongoose.connection.db.collection(rolesCollection).remove();
+  return umpackConnection.db.collection(rolesCollection).remove();
+};
+
+exports.insertUsers = function (users) {
+  return Promise.map(users, function (user) {
+    return umpackConnection.db.collection(usersCollection).insert(user);
+  });
+};
+
+exports.insertRoles = function (roles) {
+  return Promise.map(roles, function (role) {
+    return umpackConnection.db.collection(rolesCollection).insert(role);
+  });
 };

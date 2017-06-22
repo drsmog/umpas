@@ -17,3 +17,6 @@ app.use('/um', umpack.router);
 app.listen(config.get('umpackServer.port'), function() {
     // console.log('umpack start listening');
 });
+
+
+module.exports = app;
