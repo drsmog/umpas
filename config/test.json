@@ -7,5 +7,6 @@
       "passwordHashSecret": "HX4JSp4ApsQiRkc",
       "accessTokenExpiresIn": "1h"
     }
-  }
+  },
+  "mongoDatabase": "mongodb://localhost:27017/umpasTest"
 }
