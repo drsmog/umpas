@@ -24,7 +24,7 @@ class UmpackService {
 
   activateUser(userId) {
     const activated = true;
-    const options = this._statusUpdateOptions(activated);
+    const options = this._statusUpdateOptions(userId, activated);
 
     return rp(options);
   }
@@ -32,7 +32,7 @@ class UmpackService {
   deactivateUser(userId) {
     const isActivated = false;
 
-    const options = this._statusUpdateOptions(isActivated);
+    const options = this._statusUpdateOptions(userId, isActivated);
 
     return rp(options);
   }
@@ -81,7 +81,35 @@ class UmpackService {
     return rp(options);
   }
 
-  _statusUpdateOptions(isActivated) {
+  assignUserRole(userId, role) {
+    const options = this._userRoleUpdateOptions(userId, role, true);
+
+    return rp(options);
+  }
+
+  removeUserRole(userId, role) {
+    const options = this._userRoleUpdateOptions(userId, role, false);
+
+    return rp(options);
+  }
+
+  _userRoleUpdateOptions(userId, role, enable) {
+    const options = {
+      method: 'POST',
+      uri: this.project.umFullUrl + '/updateUserRoles',
+      headers: this._getHeaders(),
+      body: {
+        id: userId,
+        roleName: role,
+        enable: enable
+      },
+      json: true
+    };
+
+    return options;
+  }
+
+  _statusUpdateOptions(userId, isActivated) {
     const options = {
       method: 'POST',
       uri: this.project.umFullUrl + '/updateUserStatus',

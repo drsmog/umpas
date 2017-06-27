@@ -1,17 +1,8 @@
 const Promise = require('bluebird');
-const UmpackService = require('../infrastructure/umpackService');
-const projectRepository = require('../infrastructure/projectsRepository');
+const projectInteractor = require('./projectInteractor');
 
 exports.getFullUsersList = function(projectId) {
-  return projectRepository.getById(projectId)
-    .then(function(project) {
-      const umService = new UmpackService(project);
-
-      return umService.login()
-        .then(function() {
-          return umService;
-        });
-    })
+  return projectInteractor.getLoggedInProjectService(projectId)
     .then(function(umService) {
 
       return umService.getAllUsers()
@@ -21,5 +12,47 @@ exports.getFullUsersList = function(projectId) {
           });
         });
 
+    });
+};
+
+exports.deleteUser = function (projectId, userId) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.deleteUser(projectId);
+    });
+};
+
+exports.changeUserInfo = function (projectId, userId, info) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.changeUserInfo(userId, info);
+    });
+};
+
+exports.assignRole = function (projectId, userId, role) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.assignUserRole(userId, role);
+    });
+};
+
+exports.unassignRole = function (projectId, userId, role) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.removeUserRole(userId, role);
+    });
+};
+
+exports.activate = function (projectId, userId) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.activateUser(userId);
+    });
+};
+
+exports.deactivate = function (projectId, userId) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.deactivateUser(userId);
     });
 };
