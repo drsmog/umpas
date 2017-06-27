@@ -16,6 +16,16 @@ router.delete('/:id', function(req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
+router.put('/:id', function (req, res, next) {
+  const projectId = req.params.projectId;
+  const userId = req.params.id;
+  const user = req.body;
+
+  const promise = userInteractor.updateFullUser(projectId, userId, user);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
 router.put('/:id/info', function(req, res, next) {
   const promise = userInteractor.changeUserInfo(req.params.projectId, req.params.id, req.body);
 

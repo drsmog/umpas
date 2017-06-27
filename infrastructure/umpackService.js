@@ -109,6 +109,18 @@ class UmpackService {
     return options;
   }
 
+  updateMetadata(metadata) {
+    const options = {
+      method: 'PUT',
+      uri: this.project.umFullUrl + '/metadata',
+      headers: this._getHeaders(),
+      body: metadata,
+      json: true
+    };
+
+    return rp(options);
+  }
+
   _statusUpdateOptions(userId, isActivated) {
     const options = {
       method: 'POST',
