@@ -47,7 +47,7 @@ ProjectSchema.virtual('id')
 
 ProjectSchema.virtual('umFullUrl')
   .get(function() {
-    return this.url + formatBaseUrl(this.umBaseUrl);
+    return urlWithProtocol(this.url) + formatBaseUrl(this.umBaseUrl);
   });
 
 function formatBaseUrl(baseUrl) {
@@ -59,6 +59,14 @@ function formatBaseUrl(baseUrl) {
     1);
 
   return result;
+}
+
+function urlWithProtocol(url) {
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+
+  return 'http://' + url;
 }
 
 module.exports = mongoose.model('Project', ProjectSchema);
