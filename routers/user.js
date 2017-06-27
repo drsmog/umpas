@@ -52,7 +52,7 @@ router.delete('/:id/roles/:role', function (req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
-router.post('/:id/activation', function (req, res, next) {
+router.put('/:id/activation', function (req, res, next) {
   const projectId = req.params.projectId;
   const userId = req.params.id;
 
