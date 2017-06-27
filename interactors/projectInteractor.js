@@ -45,7 +45,7 @@ exports.getProjectService = function(projectId) {
 };
 
 exports.getLoggedInProjectService = function(projectId) {
-  return getProjectService(projectId)
+  return exports.getProjectService(projectId)
     .then(function(service) {
       return service.login()
         .then(function() {

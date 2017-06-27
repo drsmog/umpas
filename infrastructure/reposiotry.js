@@ -18,9 +18,7 @@ class MongoRepository {
   }
 
   getById(id) {
-    return this.modelClass.findOne({
-      _id: id
-    }).exec();
+    return this.modelClass.findById(id).exec();
   }
 
   update(record) {
