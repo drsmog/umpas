@@ -15,6 +15,10 @@ export class ProjectService {
     return this.projects;
   }
 
+  get selectedProjectId() {
+    return this.selectedProject.id;
+  }
+
   constructor(private api: ProjectApiService, private notificationService: NotificationsService) { }
 
   fetchProjects() {

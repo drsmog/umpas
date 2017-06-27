@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserApiService } from './user-api.service';
 import { RoleService } from '../../role/service/role.service';
+import { ProjectService } from '../../project/service/project.service';
 
 import { NotificationsService } from '../../core/notification/notifications.service';
 
@@ -12,10 +13,15 @@ export class UserService {
   roleList: any;
   timeOutMilliseconds = 4000;
 
-  constructor(private api: UserApiService, private roleService: RoleService, private notificationService: NotificationsService) { }
+  constructor(
+    private api: UserApiService,
+    private roleService: RoleService,
+    private notificationService: NotificationsService,
+    private projectService: ProjectService
+  ) { }
 
   fetchUsers() {
-    return this.api.getUsers()
+    return this.api.getUsers(this.projectService.selectedProjectId)
       .then((list) => this.users = list);
   }
 
@@ -55,7 +61,7 @@ export class UserService {
       Object.assign(this.users[index], user);
     };
 
-    return this.api.updateUser(user)
+    return this.api.updateUser(this.projectService.selectedProjectId, user)
       .then(() => {
         refreshUser(user);
 
@@ -67,7 +73,7 @@ export class UserService {
   }
 
   removeUser(user) {
-    return this.api.removeUser(user)
+    return this.api.removeUser(this.projectService.selectedProjectId, user)
       .then(() => {
         let index = this.users.findIndex(item => item.id === user.id);
         if (index === -1) { return; }
