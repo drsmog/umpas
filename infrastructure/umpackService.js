@@ -121,6 +121,33 @@ class UmpackService {
     return rp(options);
   }
 
+  getRoles() {
+    return this._request('GET', '/roles');
+  }
+
+  getFullRole(role) {
+    return this._request('GET', '/roles/' + role);
+  }
+
+  _rpOptions(method, routeUrl, body) {
+    const options = {
+      method: method,
+      uri: this.project.umFullUrl + routeUrl,
+      headers: this._getHeaders(),
+      json: true
+    };
+
+    if(body) options.body = body;
+
+    return options;
+  }
+
+  _request(method, routeUrl, body) {
+    const options = this._rpOptions(method, routeUrl, body);
+
+    return rp(options);
+  }
+
   _statusUpdateOptions(userId, isActivated) {
     const options = {
       method: 'POST',
