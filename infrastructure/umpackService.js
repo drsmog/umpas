@@ -1,5 +1,10 @@
 const rp = require('request-promise');
 
+const getVerb = 'GET';
+const postVerb = 'POST';
+const putVerb = 'PUT';
+const deleteVerb = 'DELETE';
+
 class UmpackService {
   constructor(project) {
     this.project = project;
@@ -7,7 +12,7 @@ class UmpackService {
 
   login() {
     const options = {
-      method: 'POST',
+      method: postVerb,
       uri: this.project.umFullUrl + '/login',
       body: {
         userName: this.project.username,
@@ -38,47 +43,19 @@ class UmpackService {
   }
 
   getAllUsers() {
-    const options = {
-      method: 'GET',
-      uri: this.project.umFullUrl + '/users',
-      headers: this._getHeaders(),
-      json: true
-    };
-
-    return rp(options);
+    return this._request(getVerb, '/users');
   }
 
   getUserById(id) {
-    const options = {
-      uri: this.project.umFullUrl + '/users/' + id,
-      headers: this._getHeaders(),
-      json: true
-    };
-
-    return rp(options);
+    return this._request(getVerb, '/users/' + id);
   }
 
   deleteUser(id) {
-    const options = {
-      method: 'DELETE',
-      uri: this.project.umBaseUrl + '/users/' + id,
-      headers: this._getHeaders(),
-      json: true
-    };
-
-    return rp(options);
+    return this._request(deleteVerb, '/users/' + id);
   }
 
   changeUserInfo(id, info) {
-    const options = {
-      method: 'PUT',
-      uri: this.project.umBaseUrl + '/users/' + id,
-      body: info,
-      headers: this._getHeaders(),
-      json: true
-    };
-
-    return rp(options);
+    return this._request(putVerb, '/users/' + id, info);
   }
 
   assignUserRole(userId, role) {
@@ -94,39 +71,23 @@ class UmpackService {
   }
 
   _userRoleUpdateOptions(userId, role, enable) {
-    const options = {
-      method: 'POST',
-      uri: this.project.umFullUrl + '/updateUserRoles',
-      headers: this._getHeaders(),
-      body: {
-        id: userId,
-        roleName: role,
-        enable: enable
-      },
-      json: true
-    };
-
-    return options;
+    return this._request(postVerb, '/updateUserRoles', {
+      id: userId,
+      roleName: role,
+      enable: enable
+    });
   }
 
   updateMetadata(metadata) {
-    const options = {
-      method: 'PUT',
-      uri: this.project.umFullUrl + '/metadata',
-      headers: this._getHeaders(),
-      body: metadata,
-      json: true
-    };
-
-    return rp(options);
+    return this._request(putVerb, '/metadata', metadata);
   }
 
   getRoles() {
-    return this._request('GET', '/roles');
+    return this._request(getVerb, '/roles');
   }
 
   getFullRole(role) {
-    return this._request('GET', '/roles/' + role);
+    return this._request(getVerb, '/roles/' + role);
   }
 
   _rpOptions(method, routeUrl, body) {
@@ -150,7 +111,7 @@ class UmpackService {
 
   _statusUpdateOptions(userId, isActivated) {
     const options = {
-      method: 'POST',
+      method: postVerb,
       uri: this.project.umFullUrl + '/updateUserStatus',
       headers: this._getHeaders(),
       body: {
