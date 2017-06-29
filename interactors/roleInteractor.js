@@ -10,3 +10,10 @@ exports.getFullRoles = function (projectId) {
       });
     });
 };
+
+exports.deleteRole = function (projectId, role) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.deleteRole(role);
+    });
+};
