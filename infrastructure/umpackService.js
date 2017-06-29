@@ -102,7 +102,7 @@ class UmpackService {
     return this._request(postVerb, `/roles/${role}/actions`, action);
   }
 
-  editRolesAction(role, action) {
+  editRoleAction(role, action) {
     return this._request(putVerb, `/roles/${role}/actions/${action.id}`, action);
   }
 
