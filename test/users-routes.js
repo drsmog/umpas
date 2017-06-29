@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 const password = '123456';
 
 
-describe('users routes', function() {
+describe.skip('users routes', function() {
   const app = require('../app');
   const baseUrl = '/api/users';
 
