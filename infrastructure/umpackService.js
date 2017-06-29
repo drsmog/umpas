@@ -47,15 +47,15 @@ class UmpackService {
   }
 
   getUserById(id) {
-    return this._request(getVerb, '/users/' + id);
+    return this._request(getVerb, `/users/${id}`);
   }
 
   deleteUser(id) {
-    return this._request(deleteVerb, '/users/' + id);
+    return this._request(deleteVerb, `/users/${id}`);
   }
 
   changeUserInfo(id, info) {
-    return this._request(putVerb, '/users/' + id, info);
+    return this._request(putVerb, `/users/${id}`, info);
   }
 
   assignUserRole(userId, role) {
@@ -87,7 +87,27 @@ class UmpackService {
   }
 
   getFullRole(role) {
-    return this._request(getVerb, '/roles/' + role);
+    return this._request(getVerb, `/roles/${role}`);
+  }
+
+  deleteRole(role) {
+    return this._request(deleteVerb, `/roles/${role}`);
+  }
+
+  createRole(role) {
+    return this._request(postVerb, '/roles', {name: role});
+  }
+
+  permitActionToRole(role, action) {
+    return this._request(postVerb, `/roles/${role}/actions`, action);
+  }
+
+  editRolesAction(role, action) {
+    return this._request(putVerb, `/roles/${role}/actions/${action.id}`, action);
+  }
+
+  removePermittedActionFromRole(role, actionId) {
+    return this._request(deleteVerb, `/roles/${role}/actions/${actionId}`);
   }
 
   _rpOptions(method, routeUrl, body) {
