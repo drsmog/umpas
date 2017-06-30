@@ -30,7 +30,7 @@ export class RoleService {
     };
 
     let refreshRole = (roleItem) => {
-      let roleIndex = this.roles.findIndex((item) => item.id === roleItem.id);
+      let roleIndex = this.roles.findIndex((item) => item.name === roleItem.name);
       if (roleIndex === -1) { return; }
       Object.assign(this.roles[roleIndex], roleItem);
     };
@@ -46,7 +46,7 @@ export class RoleService {
 
   removeRole(role) {
     return this.api.deleteRole(this.projectService.selectedProjectId, role).then(() => {
-      let index = this.roles.findIndex((item) => item.id === role.id);
+      let index = this.roles.findIndex((item) => item.name === role.name);
       if (index === -1) { return; }
       this.roles.splice(index, 1);
       this.roles = this.roles.slice();
