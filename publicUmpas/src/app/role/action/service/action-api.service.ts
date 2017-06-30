@@ -16,14 +16,14 @@ export class ActionApiService {
 
 
 
-  getActions(roleId) {
-    let requestUrl = `${this.url}/?roleId=${roleId}`;
+  getActions(projectId, roleName) {
+    let requestUrl = `${this.url}/?roleName=${roleName}&projectId=${projectId}`;
     return this.http.get(requestUrl).toPromise()
       .then((result) => result.json().data);
   }
 
-  postAction(action, roleId) {
-    let requestUrl = `${this.url}/?roleId=${roleId}`;
+  postAction(projectId, action, roleName) {
+    let requestUrl = `${this.url}/?roleName=${roleName}&projectId=${projectId}`;
     return this.http.post(requestUrl,
       JSON.stringify(action),
       { headers: this.headers }).toPromise()
@@ -32,8 +32,8 @@ export class ActionApiService {
 
 
 
-  putAction(action, roleId) {
-    let requestUrl = `${this.url}/${action.id}?roleId=${roleId}`;
+  putAction(projectId, action, roleName) {
+    let requestUrl = `${this.url}/${action.id}?roleName=${roleName}&projectId=${projectId}`;
     return this.http.put(
       requestUrl,
       JSON.stringify(action),
@@ -41,8 +41,8 @@ export class ActionApiService {
 
   }
 
-  deleteAction(roleId, actionId) {
-    let requestUrl = `${this.url}/${actionId}/?roleId=${roleId}`;
+  deleteAction(projectId, roleName, actionId) {
+    let requestUrl = `${this.url}/${actionId}/?roleName=${roleName}&projectId=${projectId}`;
 
     return this.http.delete(requestUrl).toPromise();
 
