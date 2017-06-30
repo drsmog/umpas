@@ -5,19 +5,13 @@ const roleInteractor = require('../interactors/roleInteractor');
 const baseUrl = '/api/roles';
 
 router.get('/', function (req, res, next) {
-  const promise = roleInteractor.getFullRoles(req.query.projectId);
+  const promise = roleInteractor.getRoles(req.query.projectId);
 
   sendPromiseResult(promise, req, res, next);
 });
 
 router.post('/', function (req, res, next) {
-  const promise = roleInteractor.createRoleWithActions(req.query.projectId, req.body);
-
-  sendPromiseResult(promise, req, res, next);
-});
-
-router.put('/:role', function (req, res, next) {
-  const promise = roleInteractor.updateFullRole(req.query.projectId, req.params.role, req.body);
+  const promise = roleInteractor.createRole(req.query.projectId, req.body);
 
   sendPromiseResult(promise, req, res, next);
 });
