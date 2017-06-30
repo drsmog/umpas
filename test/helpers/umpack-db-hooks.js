@@ -3,6 +3,8 @@ const config = require('config');
 const Promise = require('bluebird');
 mongoose.Promise = Promise;
 
+const utils = require('./utils');
+
 const ObjectId = require('mongodb').ObjectID;
 
 const usersCollection = 'users';
@@ -17,7 +19,7 @@ exports.insertRootUser = function () {
   return umpackConnection.db.collection(usersCollection)
     .insert({
       userName: 'root',
-      password: password,
+      password: utils.passwordHash(password),
       isActivated: true,
       roles: ['admin']
     });

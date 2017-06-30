@@ -19,3 +19,7 @@ exports.insertTestProject = function () {
       umBaseUrl: '/um'
     });
 };
+
+exports.getTestProject = function () {
+  return mongoose.connection.db.collection(projectsCollection).findOne({name: 'test project'});
+};

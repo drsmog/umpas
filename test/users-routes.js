@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 const password = '123456';
 
 
-describe.skip('users routes', function() {
+describe('users routes', function() {
   const app = require('../app');
   const baseUrl = '/api/users';
 
@@ -60,8 +60,12 @@ describe.skip('users routes', function() {
         }
       ])
         .then(function () {
+          return projectHooks.getTestProject();
+        })
+        .then(function (project) {
           return chai.request(app)
-            .get(baseUrl);
+            .get(baseUrl)
+            .query({projectId: project._id.toString()});
         })
         .then(function (res) {
           res.should.have.status(200);

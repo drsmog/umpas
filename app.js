@@ -29,5 +29,7 @@ app.get('*', function(req, res, next) {
 });
 
 app.listen(process.env.PORT, function() {
-    console.log('start listening');
+  console.log('start listening');
 });
+
+module.exports = app;
