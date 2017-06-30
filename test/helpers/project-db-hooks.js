@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const config = require('config');
 
+const utils = require('./utils');
+
 const projectsCollection = 'projects';
 const rootUser = 'root';
 const password = '123456';
 
 exports.truncateProjectsCollection = function () {
-  return mongoose.connection.db.collection(projectsCollection).remove();
+  return utils.dropCollection(projectsCollection);
 };
 
 exports.insertTestProject = function () {

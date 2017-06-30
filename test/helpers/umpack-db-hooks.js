@@ -26,7 +26,7 @@ exports.insertRootUser = function () {
 };
 
 exports.truncateUsersCollection = function () {
-  return umpackConnection.db.collection(usersCollection).remove();
+  return utils.dropCollection(usersCollection, umpackConnection);
 };
 
 exports.insertAdminRole = function () {
@@ -48,7 +48,7 @@ exports.insertAdminRole = function () {
 };
 
 exports.truncateRolesCollection = function () {
-  return umpackConnection.db.collection(rolesCollection).remove();
+  return utils.dropCollection(rolesCollection, umpackConnection);
 };
 
 exports.insertUsers = function (users) {
