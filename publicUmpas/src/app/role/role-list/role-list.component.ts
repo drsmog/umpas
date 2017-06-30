@@ -29,7 +29,8 @@ export class RoleListComponent implements OnInit {
         if (!this.roleService.selectedRole) {
             return false;
         }
-        return this.roleService.selectedRole.id === role.id;
+
+        return this.roleService.selectedRole.name === role.name;
     }
 
     onSaved(role) {
