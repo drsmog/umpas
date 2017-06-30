@@ -25,7 +25,6 @@ export class UserListComponent implements OnInit {
 
   onSelect(user) {
     this.userService.selectedUser = Object.assign({}, user);
-    console.log(this.userService.selectedUser);
   }
 
   onRemoveUser(event, user) {

@@ -21,8 +21,8 @@ export class RoleListComponent implements OnInit {
 
     onSelect(role) {
         this.roleService.selectedRole = Object.assign({}, role);
-        this.actionService.fetchActions(role.id);
 
+        this.actionService.fetchActions(role.id);
     }
 
     isSelected(role) {

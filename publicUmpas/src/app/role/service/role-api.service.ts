@@ -35,7 +35,7 @@ export class RoleApiService {
     const searchString = objectToRawString({ projectId: projectId });
 
     return this.http.put(
-      `${this.url}/${role.id}`,
+      `${this.url}/${role.name}`,
       JSON.stringify(role),
       { headers: this.headers, search: searchString }).toPromise();
 
@@ -45,7 +45,7 @@ export class RoleApiService {
     const searchString = objectToRawString({ projectId: projectId });
 
     return this.http.delete(
-      `${this.url}/${role.id}`,
+      `${this.url}/${role.name}`,
       { headers: this.headers, search: searchString }).toPromise();
   }
 
