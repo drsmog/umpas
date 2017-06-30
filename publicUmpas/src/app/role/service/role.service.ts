@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RoleApiService } from './role-api.service';
+import { ProjectService } from '../../project/service/project.service';
 
 import { NotificationsService } from '../../core/notification/notifications.service';
 
@@ -10,10 +11,13 @@ export class RoleService {
   selectedRoleActions: any = [];
   timeOutMilliseconds = 4000;
 
-  constructor(private api: RoleApiService, private notificationService: NotificationsService) { }
+  constructor(
+    private api: RoleApiService,
+    private notificationService: NotificationsService,
+    private projectService: ProjectService) { }
 
   fetchRoles() {
-    return this.api.getRoles()
+    return this.api.getRoles(this.projectService.selectedProjectId)
       .then((list) => this.roles = list);
   }
 
@@ -32,16 +36,16 @@ export class RoleService {
     };
 
     if (isEditMode(role)) {
-      return this.api.putRole(role).then(refreshRole.bind(this, role))
+      return this.api.putRole(this.projectService.selectedProjectId, role).then(refreshRole.bind(this, role))
         .then(this.notifySuccess.bind(this, 'role updated'));
     }
-    return this.api.postRole(role).then(pushRole)
+    return this.api.postRole(this.projectService.selectedProjectId, role).then(pushRole)
       .then(this.notifySuccess.bind(this, 'role created successfully'));
 
   }
 
   removeRole(role) {
-    return this.api.deleteRole(role).then(() => {
+    return this.api.deleteRole(this.projectService.selectedProjectId, role).then(() => {
       let index = this.roles.findIndex((item) => item.id === role.id);
       if (index === -1) { return; }
       this.roles.splice(index, 1);

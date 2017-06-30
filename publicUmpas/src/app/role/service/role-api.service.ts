@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+import { objectToRawString } from '../../utils';
+
 @Injectable()
 export class RoleApiService {
 
@@ -13,30 +15,38 @@ export class RoleApiService {
 
   constructor(private http: Http) { }
 
-  getRoles() {
-    return this.http.get(this.url).toPromise()
+  getRoles(projectId) {
+    const searchString = objectToRawString({ projectId: projectId });
+
+    return this.http.get(this.url, { search: searchString }).toPromise()
       .then((result) => result.json().data);
   }
 
-  postRole(role) {
+  postRole(projectId, role) {
+    const searchString = objectToRawString({ projectId: projectId });
+
     return this.http.post(this.url,
       JSON.stringify(role),
-      { headers: this.headers }).toPromise()
+      { headers: this.headers, search: searchString }).toPromise()
       .then((result) => result.json().data);
   }
 
-  putRole(role) {
+  putRole(projectId, role) {
+    const searchString = objectToRawString({ projectId: projectId });
+
     return this.http.put(
       `${this.url}/${role.id}`,
       JSON.stringify(role),
-      { headers: this.headers }).toPromise();
+      { headers: this.headers, search: searchString }).toPromise();
 
   }
 
-  deleteRole(role) {
+  deleteRole(projectId, role) {
+    const searchString = objectToRawString({ projectId: projectId });
+
     return this.http.delete(
       `${this.url}/${role.id}`,
-      { headers: this.headers }).toPromise();
+      { headers: this.headers, search: searchString }).toPromise();
   }
 
 }
