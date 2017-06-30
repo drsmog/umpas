@@ -79,9 +79,6 @@ describe('roles routes', function() {
 
           should.exist(nonAdminRole);
 
-          nonAdminRole.should.have.property('actions');
-          nonAdminRole.actions.should.have.length(1);
-
         });
 
     });
