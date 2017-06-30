@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const projectRouter = require('./routers/project');
 const userRouter = require('./routers/user');
 const rolesRouter = require('./routers/role');
+const actionsRouter = require('./routers/action');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(__dirname + '/publicUmpas/dist'));
 app.use('/api/projects', projectRouter);
 app.use(userRouter.baseUrl, userRouter.router);
 app.use(rolesRouter.baseUrl, rolesRouter.router);
+app.use(actionsRouter.baseUrl, actionsRouter.router);
 
 app.get('*', function(req, res, next) {
     res.sendFile('index.html', {root: './publicUmpas/dist'});
