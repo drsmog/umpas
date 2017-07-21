@@ -20,7 +20,7 @@ exports.getFullUsersList = function(projectId) {
 exports.deleteUser = function(projectId, userId) {
   return projectInteractor.getLoggedInProjectService(projectId)
     .then(function(service) {
-      return service.deleteUser(projectId);
+      return service.deleteUser(userId);
     });
 };
 
