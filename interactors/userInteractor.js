@@ -1,5 +1,6 @@
 const Promise = require('bluebird');
 const _ = require('lodash');
+const random = require('randomstring');
 const projectInteractor = require('./projectInteractor');
 
 exports.getFullUsersList = function(projectId) {
@@ -93,6 +94,21 @@ exports.updateFullUser = function(projectId, userId, user) {
 
         });
 
+    });
+};
+
+exports.registerInactiveUser = function(projectId, user) {
+  return projectInteractor.getProjectService(projectId)
+    .then(function(service) {
+      if (!user.password) user.password = random.generate({
+        length: 7,
+        charset: 'numeric'
+      });
+
+      return service.signup(user)
+        .then(function() {
+          return user.password;
+        });
     });
 };
 

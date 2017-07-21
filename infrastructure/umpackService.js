@@ -27,6 +27,17 @@ class UmpackService {
       }.bind(this));
   }
 
+  signup(user) {
+    const options = {
+      method: postVerb,
+      uri: this.project.umFullUrl + '/signup',
+      body: user,
+      json: true
+    };
+
+    return rp(options);
+  }
+
   activateUser(userId) {
     const activated = true;
     const options = this._statusUpdateOptions(userId, activated);

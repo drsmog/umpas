@@ -11,28 +11,38 @@ router.get('/', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-  const promise = userInteractor.deleteUser(req.query.projectId, req.params.id);
+  const promise = userInteractor.deleteUser(req.query.projectId, req.params
+    .id);
 
   sendPromiseResult(promise, req, res, next);
 });
 
-router.put('/:id', function (req, res, next) {
+router.put('/:id', function(req, res, next) {
   const projectId = req.query.projectId;
   const userId = req.params.id;
   const user = req.body;
 
-  const promise = userInteractor.updateFullUser(projectId, userId, user);
+  const promise = userInteractor.updateFullUser(projectId, userId, user)
+    .then(function(password) {
+      return {
+        success: true,
+        data: {
+          password: password
+        }
+      };
+    });
 
   sendPromiseResult(promise, req, res, next);
 });
 
 router.put('/:id/info', function(req, res, next) {
-  const promise = userInteractor.changeUserInfo(req.query.projectId, req.params.id, req.body);
+  const promise = userInteractor.changeUserInfo(req.query.projectId, req.params
+    .id, req.body);
 
   sendPromiseResult(promise, req, res, next);
 });
 
-router.put('/:id/roles/:role', function (req, res, next) {
+router.put('/:id/roles/:role', function(req, res, next) {
   const projectId = req.query.projectId;
   const userId = req.params.id;
   const role = req.params.role;
@@ -42,7 +52,7 @@ router.put('/:id/roles/:role', function (req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
-router.delete('/:id/roles/:role', function (req, res, next) {
+router.delete('/:id/roles/:role', function(req, res, next) {
   const projectId = req.query.projectId;
   const userId = req.params.id;
   const role = req.params.role;
@@ -52,7 +62,7 @@ router.delete('/:id/roles/:role', function (req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
-router.put('/:id/activation', function (req, res, next) {
+router.put('/:id/activation', function(req, res, next) {
   const projectId = req.query.projectId;
   const userId = req.params.id;
 
@@ -61,11 +71,19 @@ router.put('/:id/activation', function (req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
-router.delete('/:id/activation', function (req, res, next) {
+router.delete('/:id/activation', function(req, res, next) {
   const projectId = req.query.projectId;
   const userId = req.params.id;
 
   const promise = userInteractor.deactivate(projectId, userId);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
+router.post('/', function(req, res, next) {
+  const projectId = req.query.projectId;
+
+  const promise = userInteractor.registerInactiveUser(projectId, req.body);
 
   sendPromiseResult(promise, req, res, next);
 });
