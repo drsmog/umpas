@@ -22,15 +22,7 @@ router.put('/:id', function(req, res, next) {
   const userId = req.params.id;
   const user = req.body;
 
-  const promise = userInteractor.updateFullUser(projectId, userId, user)
-    .then(function(password) {
-      return {
-        success: true,
-        data: {
-          password: password
-        }
-      };
-    });
+  const promise = userInteractor.updateFullUser(projectId, userId, user);
 
   sendPromiseResult(promise, req, res, next);
 });
