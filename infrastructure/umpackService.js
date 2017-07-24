@@ -66,7 +66,7 @@ class UmpackService {
   }
 
   changeUserInfo(id, info) {
-    return this._request(putVerb, `/users/${id}`, info);
+    return this._request(putVerb, `/users/${id}/info`, info);
   }
 
   assignUserRole(userId, role) {
