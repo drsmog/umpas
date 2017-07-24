@@ -32,5 +32,9 @@ export class UserApiService {
       .toPromise();
   }
 
-
+  registerUser(projectId, user) {
+    return this.http.post(this.url, user, { search: this.projectIdRaw(projectId) })
+      .toPromise()
+      .then(response => response.json().data);
+  }
 }

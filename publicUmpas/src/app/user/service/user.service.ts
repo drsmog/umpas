@@ -85,4 +85,19 @@ export class UserService {
         this.notificationService.addNotification('user removed', 'success', this.timeOutMilliseconds);
       });
   }
+
+  registerInactiveUser(user) {
+    return this.api.registerUser(this.projectService.selectedProjectId, user)
+      .then(password => {
+        return this.fetchUsers()
+          .then(() => {
+            return password;
+          });
+      })
+      .then(password => {
+        this.notificationService.addNotification('user registered', 'success', this.timeOutMilliseconds);
+
+        return password;
+      });
+  }
 }

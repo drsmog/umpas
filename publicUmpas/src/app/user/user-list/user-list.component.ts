@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -7,6 +7,11 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+
+  @ViewChild('userModal') userModal;
+  @ViewChild('passwordModal') passwordModal;
+  userToAdd: any = {};
+  firstPassword: string;
 
   constructor(private userService: UserService) { }
 
@@ -37,6 +42,30 @@ export class UserListComponent implements OnInit {
 
   getUserNameField(item: any): string {
     return item.userName;
+  }
+
+  onSave() {
+    this.userService.registerInactiveUser(this.userToAdd)
+      .then(password => {
+        this.userToAdd = {};
+        this.userModal.hide();
+
+        this.firstPassword = password;
+
+        this.passwordModal.show();
+      });
+  }
+
+  copy() {
+    let success = document.execCommand('copy');
+
+    console.log(success);
+  }
+
+  onDone() {
+    this.firstPassword = null;
+
+    this.passwordModal.hide();
   }
 
 }
