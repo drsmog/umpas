@@ -83,9 +83,9 @@ class UmpackService {
 
   _userRoleUpdateOptions(userId, role, enable) {
     return this._request(postVerb, '/updateUserRoles', {
-      id: userId,
+      userId: userId,
       roleName: role,
-      enable: enable
+      enable: enable ? 'true': 'false'
     });
   }
 
