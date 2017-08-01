@@ -4,7 +4,7 @@
       <app-user-list></app-user-list>
     </div>
     <div class="col-xs-7" *ngIf="userService.selectedUser" >
-      <app-user-details [currentUser]="userService.selectedUser"></app-user-details>
+      <app-user-details [currentUser]="userService.selectedUser" (passwordReset)="onPasswordReset($event)"></app-user-details>
     </div>
   </div>
 </div>

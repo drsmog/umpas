@@ -1,34 +1,42 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../service/user.service';
 
 @Component({
-    selector: 'app-user-details',
-    templateUrl: './user-details.component.html',
-    styleUrls: ['./user-details.component.css']
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit, OnChanges {
 
-    @Input() currentUser: any;
+  @Input() currentUser: any;
+  @Output() passwordReset = new EventEmitter();
 
-    constructor(private userService: UserService) { }
+  constructor(private userService: UserService) { }
 
-    ngOnInit() {
+  ngOnInit() {
 
-    }
+  }
 
-    ngOnChanges(changes: any) {
-      this.userService.mergeUserRoleList();
-    }
+  ngOnChanges(changes: any) {
+    this.userService.mergeUserRoleList();
+  }
 
-    onSave() {
+  onSave() {
 
-      this.currentUser.roles = this.userService.roleList.filter(
-        role => role.checked
-      ).map(
-        role => role.name
+    this.currentUser.roles = this.userService.roleList.filter(
+      role => role.checked
+    ).map(
+      role => role.name
       );
 
-      this.userService.update(this.currentUser);
-    }
+    this.userService.update(this.currentUser);
+  }
+
+  resetPassword() {
+    this.userService.resetPassword(this.currentUser)
+      .then(password => {
+        this.passwordReset.emit(password);
+      });
+  }
 
 }

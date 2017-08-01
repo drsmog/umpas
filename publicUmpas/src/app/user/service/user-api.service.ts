@@ -37,4 +37,10 @@ export class UserApiService {
       .toPromise()
       .then(response => response.json().data);
   }
+
+  resetUserPassword(projectId, user) {
+    return this.http.delete(this.url + '/' + user.id + '/password', { search: this.projectIdRaw(projectId) })
+      .toPromise()
+      .then(response => response.json().data);
+  }
 }

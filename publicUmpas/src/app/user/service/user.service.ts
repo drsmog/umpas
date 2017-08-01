@@ -100,4 +100,17 @@ export class UserService {
         return password;
       });
   }
+
+  resetPassword(user) {
+    return this.api.resetUserPassword(this.projectService.selectedProjectId, user)
+      .then(password => {
+        return this.fetchUsers()
+          .then(() => password);
+      })
+      .then(password => {
+        this.notificationService.addNotification('password resetted', 'success', this.timeOutMilliseconds);
+
+        return password;
+      });
+  }
 }

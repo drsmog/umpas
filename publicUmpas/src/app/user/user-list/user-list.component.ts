@@ -68,4 +68,10 @@ export class UserListComponent implements OnInit {
     this.passwordModal.hide();
   }
 
+  showPasswordModal(password) {
+    this.firstPassword = password;
+
+    this.passwordModal.show();
+  }
+
 }

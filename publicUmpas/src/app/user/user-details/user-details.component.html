@@ -21,64 +21,71 @@
 
 <div role="form" class="container-fluid form-horizontal">
 
-    <div class="form-group">
-        <label class="verb-label">Is Activated</label>
-        <input type="checkbox" [(ngModel)]="currentUser.isActivated">
-    </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-warning passwordResetButton" (click)="resetPassword()">
+      Password Reset
+    </button>
+  </div>
 
-    <div class="form-group">
-        <label>User Name</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.userName">
-    </div>
+  <div class="form-group">
+    <label class="verb-label">Is Activated</label>
+    <input type="checkbox" [(ngModel)]="currentUser.isActivated">
+  </div>
 
-    <div class="form-group">
-        <label>Password Hash</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.password">
-    </div>
+  <div class="form-group">
+    <label>User Name</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.userName">
+  </div>
 
-    <div class="form-group">
-        <label>First Name</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.firstName">
-    </div>
+  <div class="form-group">
+    <label>Password Hash</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.password">
+  </div>
 
-    <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.lastName">
-    </div>
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.firstName">
+  </div>
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.email">
-    </div>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.lastName">
+  </div>
 
-    <div class="form-group">
-        <label>Phone</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.phone">
-    </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.email">
+  </div>
 
-    <div class="form-group">
-        <label>Address</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.address">
-    </div>
+  <div class="form-group">
+    <label>Phone</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.phone">
+  </div>
 
-    <div class="form-group">
-        <label>Additional User Info</label>
-        <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.additionalInfo">
-    </div>
+  <div class="form-group">
+    <label>Address</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.address">
+  </div>
+
+  <div class="form-group">
+    <label>Additional User Info</label>
+    <input type="text" class="form-control" placeholder="Action Name" [(ngModel)]="currentUser.additionalInfo">
+  </div>
 
 
 
-    <div class="well">
-        <p *ngFor="let role of userService.roleList">
-            <input type="checkbox" [(ngModel)]="role.checked">
-            <label class="verb-label">{{role.name}}</label>
-        </p>
-    </div>
+  <div class="well">
+    <p *ngFor="let role of userService.roleList">
+      <input type="checkbox" [(ngModel)]="role.checked">
+      <label class="verb-label">{{role.name}}</label>
+    </p>
+  </div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-circle btn-lg" data-dismiss="modal" (click)="onSave()" title="Save Action">
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-circle btn-lg" data-dismiss="modal"
+      (click)="onSave()" title="Save Action">
       <i class="fa fa-check-circle-o" aria-hidden="true"></i>
     </button>
-    </div>
+  </div>
 
 </div>
