@@ -81,7 +81,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.delete('/:id/password', function(req, res, next) {
-  const projectId = req.params.projectId;
+  const projectId = req.query.projectId;
   const userId = req.params.id;
 
   const promise = userInteractor.resetUserPassword(projectId, userId);
