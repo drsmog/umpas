@@ -4,6 +4,7 @@ const should = chai.should();
 
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectID;
 
 global.Promise = Promise;
 
@@ -35,9 +36,9 @@ describe('users routes', function() {
       });
   });
 
-  beforeEach(function () {
+  beforeEach(function() {
     return umpackHooks.truncateUsersCollection()
-      .then(function () {
+      .then(function() {
         return umpackHooks.insertRootUser();
       });
   });
@@ -47,8 +48,7 @@ describe('users routes', function() {
     it('should return full users', function() {
       const username = 'irakli';
 
-      return umpackHooks.insertUsers([
-        {
+      return umpackHooks.insertUsers([{
           userName: username,
           password: utils.passwordHash(password),
           email: 'irakli@test.com',
@@ -57,17 +57,18 @@ describe('users routes', function() {
           metaData: {
             one: 'two'
           }
-        }
-      ])
-        .then(function () {
+        }])
+        .then(function() {
           return projectHooks.getTestProject();
         })
-        .then(function (project) {
+        .then(function(project) {
           return chai.request(app)
             .get(baseUrl)
-            .query({projectId: project._id.toString()});
+            .query({
+              projectId: project._id.toString()
+            });
         })
-        .then(function (res) {
+        .then(function(res) {
           res.should.have.status(200);
 
           should.exist(res.body);
@@ -77,7 +78,8 @@ describe('users routes', function() {
 
           res.body.data.should.have.length(2); //including root user
 
-          const nonRootUser = res.body.data.find(user => user.userName === username);
+          const nonRootUser = res.body.data.find(user => user.userName ===
+            username);
 
           should.exist(nonRootUser); // user with userName irakli should be returned
 
@@ -91,5 +93,44 @@ describe('users routes', function() {
 
     });
 
+  });
+
+  describe('DELETE /:id/password', function() {
+    it('should set random password', function() {
+      const username = 'irakli';
+      const id = new ObjectId();
+
+      return umpackHooks.insertUsers([{
+          _id: id,
+          userName: username,
+          password: utils.passwordHash(password),
+          email: 'irakli@test.com',
+          firstName: 'irakli',
+          additionalInfo: 'I am programmer',
+          metaData: {
+            one: 'two'
+          }
+        }])
+        .then(function() {
+          return projectHooks.getTestProject();
+        })
+        .then(function(project) {
+          return chai.request(app)
+            .delete(`${baseUrl}/${id}/password`)
+            .query({
+              projectId: project._id.toString()
+            });
+        })
+        .then(function (res) {
+          res.should.have.status(200);
+
+          should.exist(res.body);
+
+          res.body.should.have.property('success', true);
+          res.body.should.have.property('data');
+
+          res.body.data.should.be.a('string');
+        });
+    });
   });
 });
