@@ -81,6 +81,10 @@ class UmpackService {
     return rp(options);
   }
 
+  resetUserPassword(userId) {
+    return this._request(deleteVerb, `/users/${userId}/password`);
+  }
+
   _userRoleUpdateOptions(userId, role, enable) {
     return this._request(postVerb, '/updateUserRoles', {
       userId: userId,

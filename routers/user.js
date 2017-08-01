@@ -80,6 +80,15 @@ router.post('/', function(req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
+router.delete('/:id/password', function(req, res, next) {
+  const projectId = req.params.projectId;
+  const userId = req.params.id;
+
+  const promise = userInteractor.resetUserPassword(projectId, userId);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
 
 module.exports = {
   baseUrl: baseUrl,

@@ -112,6 +112,16 @@ exports.registerInactiveUser = function(projectId, user) {
     });
 };
 
+exports.resetUserPassword = function (projectId, userId) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.resetUserPassword(userId)
+        .then(function (result) {
+          return result.password;
+        });
+    });
+};
+
 function computeRoleChanges(oldRoles, newRoles) {
   let rolesToAssign = _.difference(newRoles, oldRoles);
 
