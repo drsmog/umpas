@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from './service/role.service';
+import { UserService } from '../user/service/user.service';
 
 @Component({
   selector: 'app-role',
@@ -8,9 +9,14 @@ import { RoleService } from './service/role.service';
 })
 export class RoleComponent implements OnInit {
 
-  constructor(private roleService: RoleService) { }
+  constructor(private roleService: RoleService, private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.fetchUsers();
+  }
+
+  get roleUsers() {
+    return this.userService.users.filter(item => item.roles.includes(this.roleService.selectedRole.name));
   }
 
 }

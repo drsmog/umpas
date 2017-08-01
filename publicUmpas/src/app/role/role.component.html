@@ -10,20 +10,11 @@
       <tabset>
         <tab heading="Actions">
           <app-action></app-action>
-          
+
         </tab>
         <tab heading="Users">
           <ul>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
-            <li>HeyUsers</li>
+            <li *ngFor="let user of roleUsers">{{user.userName}}</li>
           </ul>
         </tab>
       </tabset>
