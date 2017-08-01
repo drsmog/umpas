@@ -70,22 +70,18 @@ class UmpackService {
   }
 
   assignUserRole(userId, role) {
-    const options = this._userRoleUpdateOptions(userId, role, true);
-
-    return rp(options);
+    return this._userRoleUpdate(userId, role, true);
   }
 
   removeUserRole(userId, role) {
-    const options = this._userRoleUpdateOptions(userId, role, false);
-
-    return rp(options);
+    return this._userRoleUpdate(userId, role, false);
   }
 
   resetUserPassword(userId) {
     return this._request(deleteVerb, `/users/${userId}/password`);
   }
 
-  _userRoleUpdateOptions(userId, role, enable) {
+  _userRoleUpdate(userId, role, enable) {
     return this._request(postVerb, '/updateUserRoles', {
       userId: userId,
       roleName: role,
@@ -110,7 +106,9 @@ class UmpackService {
   }
 
   createRole(role) {
-    return this._request(postVerb, '/roles', {name: role});
+    return this._request(postVerb, '/roles', {
+      name: role
+    });
   }
 
   permitActionToRole(role, action) {
@@ -118,7 +116,8 @@ class UmpackService {
   }
 
   editRoleAction(role, action) {
-    return this._request(putVerb, `/roles/${role}/actions/${action.id}`, action);
+    return this._request(putVerb, `/roles/${role}/actions/${action.id}`,
+      action);
   }
 
   removePermittedActionFromRole(role, actionId) {
@@ -133,7 +132,7 @@ class UmpackService {
       json: true
     };
 
-    if(body) options.body = body;
+    if (body) options.body = body;
 
     return options;
   }
