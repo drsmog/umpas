@@ -121,7 +121,7 @@ describe('users routes', function() {
               projectId: project._id.toString()
             });
         })
-        .then(function (res) {
+        .then(function(res) {
           res.should.have.status(200);
 
           should.exist(res.body);
@@ -130,6 +130,51 @@ describe('users routes', function() {
           res.body.should.have.property('data');
 
           res.body.data.should.be.a('string');
+        });
+    });
+  });
+
+  describe('PUT /:id/roles/:role', function() {
+    it('should assign role when user has no roles', function() {
+      const id = new ObjectId();
+
+      return umpackHooks.insertUsers([{
+          _id: id,
+          userName: 'irakli',
+          password: utils.passwordHash(password),
+          email: 'irakli@test.com',
+          firstName: 'irakli',
+          additionalInfo: 'I am programmer',
+          metaData: {
+            one: 'two'
+          },
+          roles: []
+        }])
+        .then(function() {
+          return projectHooks.getTestProject();
+        })
+        .then(function(project) {
+          return chai.request(app)
+            .put(`${baseUrl}/${id}/roles/user`)
+            .query({
+              projectId: project._id.toString()
+            });
+        })
+        .then(function(res) {
+          res.should.have.status(200);
+
+          should.exist(res.body);
+
+          res.body.should.have.property('success', true);
+
+          return umpackHooks.findUser(id);
+        })
+        .then(function(user) {
+          should.exist(user.roles);
+
+          user.roles.should.have.length(1);
+
+          user.roles[0].should.equal('user');
         });
     });
   });

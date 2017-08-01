@@ -13,9 +13,10 @@ const password = '123456';
 
 const actionId = new ObjectId();
 
-const umpackConnection = mongoose.createConnection(config.get('umpackServer.umpack.mongodbConnectionString'));
+const umpackConnection = mongoose.createConnection(config.get(
+  'umpackServer.umpack.mongodbConnectionString'));
 
-exports.insertRootUser = function () {
+exports.insertRootUser = function() {
   return umpackConnection.db.collection(usersCollection)
     .insert({
       userName: 'root',
@@ -25,40 +26,46 @@ exports.insertRootUser = function () {
     });
 };
 
-exports.truncateUsersCollection = function () {
+exports.truncateUsersCollection = function() {
   return utils.dropCollection(usersCollection, umpackConnection);
 };
 
-exports.insertAdminRole = function () {
+exports.insertAdminRole = function() {
   return umpackConnection.db.collection(rolesCollection)
     .insert({
       name: 'admin',
-      actions: [
-        {
-          _id: actionId,
-          pattern: '/um/*',
-          name: 'um',
-          verbGet: true,
-          verbPost: true,
-          verbPut: true,
-          verbDelete: true
-        }
-      ]
+      actions: [{
+        _id: actionId,
+        pattern: '/um/*',
+        name: 'um',
+        verbGet: true,
+        verbPost: true,
+        verbPut: true,
+        verbDelete: true
+      }]
     });
 };
 
-exports.truncateRolesCollection = function () {
+exports.truncateRolesCollection = function() {
   return utils.dropCollection(rolesCollection, umpackConnection);
 };
 
-exports.insertUsers = function (users) {
-  return Promise.map(users, function (user) {
+exports.insertUsers = function(users) {
+  return Promise.map(users, function(user) {
     return umpackConnection.db.collection(usersCollection).insert(user);
   });
 };
 
-exports.insertRoles = function (roles) {
-  return Promise.map(roles, function (role) {
+exports.insertRoles = function(roles) {
+  return Promise.map(roles, function(role) {
     return umpackConnection.db.collection(rolesCollection).insert(role);
+  });
+};
+
+exports.findUser = function(id, username) {
+  if (id) return umpackConnection.db.collection(usersCollection).findOne({_id: id});
+
+  return umpackConnection.db.collection(usersCollection).findOne({
+    userName: username
   });
 };
