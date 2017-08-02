@@ -50,6 +50,13 @@ ProjectSchema.virtual('umFullUrl')
     return urlWithProtocol(this.url) + formatBaseUrl(this.umBaseUrl);
   });
 
+ProjectSchema.methods.initializeUser = function (password) {
+  if (!password) return;
+
+  this.username = 'root';
+  this.password = password;
+};
+
 function formatBaseUrl(baseUrl) {
   let result = baseUrl;
 

@@ -124,6 +124,10 @@ class UmpackService {
     return this._request(deleteVerb, `/roles/${role}/actions/${actionId}`);
   }
 
+  initializeUm() {
+    return this._request(postVerb, '/initialization', {umBaseUrl: this.project.umBaseUrl});
+  }
+
   _rpOptions(method, routeUrl, body) {
     const options = {
       method: method,

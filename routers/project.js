@@ -5,33 +5,41 @@ const sendPromiseResult = require('../utils/responseSender').sendPromiseResult;
 
 router.get('/', function(req, res, next) {
 
-    const promise = projectInteractor.getList();
+  const promise = projectInteractor.getList();
 
-    sendPromiseResult(promise, req, res, next);
+  sendPromiseResult(promise, req, res, next);
 
 });
 
 router.post('/', function(req, res, next) {
 
-    const promise = projectInteractor.addProject(req.body);
+  const promise = projectInteractor.addProject(req.body);
 
-    sendPromiseResult(promise, req, res, next);
+  sendPromiseResult(promise, req, res, next);
 
 });
 
 router.put('/:id', function(req, res, next) {
 
-    const promise = projectInteractor.editProjectDetails(req.params.id, req.body);
+  const promise = projectInteractor.editProjectDetails(req.params.id, req.body);
 
-    sendPromiseResult(promise, req, res, next);
+  sendPromiseResult(promise, req, res, next);
 
 });
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', function(req, res, next) {
 
-    const promise = projectInteractor.removeProject(req.params.id);
+  const promise = projectInteractor.removeProject(req.params.id);
 
-    sendPromiseResult(promise, req, res, next);
+  sendPromiseResult(promise, req, res, next);
+
+});
+
+router.post('/:id/initialization', function(req, res, next) {
+
+  const promise = projectInteractor.initializeProjectUm(req.params.id);
+
+  sendPromiseResult(promise, req, res, next);
 
 });
 

@@ -54,6 +54,20 @@ exports.getLoggedInProjectService = function(projectId) {
     });
 };
 
+exports.initializeProjectUm = function(projectId) {
+  return projectRepo.getById(projectId)
+    .then(function(project) {
+      const service = new UmpackService(project);
+
+      return service.initializeUm()
+        .then(function(result) {
+          if (result.password) project.initializeUser(result.password);
+
+          return project;
+        });
+    });
+};
+
 function validateOnClientUrl(project) {
   if (!project.url) throw new RecordError('project url should not be empty');
 }
