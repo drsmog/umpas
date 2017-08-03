@@ -2,6 +2,8 @@ const projectRepo = require('../infrastructure/projectsRepository');
 const RecordError = require('../exceptions/recordError');
 const Promise = require('bluebird');
 const UmpackService = require('../infrastructure/umpackService');
+const Project = require('../models/project');
+const _ = require('lodash');
 
 exports.getList = function() {
   return projectRepo.find({});
@@ -54,7 +56,7 @@ exports.getLoggedInProjectService = function(projectId) {
     });
 };
 
-exports.initializeProjectUm = function(projectId) {
+exports.initializeExistingProjectUm = function(projectId) {
   return projectRepo.getById(projectId)
     .then(function(project) {
       const service = new UmpackService(project);
@@ -63,9 +65,28 @@ exports.initializeProjectUm = function(projectId) {
         .then(function(result) {
           if (result.password) project.initializeUser(result.password);
 
-          return project;
+          return project.save();
         });
     });
+};
+
+exports.initializeProjectUm = function (projectObject) {
+  return Promise.try(function () {
+    validateOnClientUrl(projectObject);
+
+    const project = new Project(projectObject);
+
+    const service = new UmpackService(project);
+
+    return service.initializeUm()
+      .then(function (result) {
+        if (result.password) project.initializeUser(result.password);
+
+        const projectToReturn = _.omit(project.toObject(), ['id', '_id']);
+
+        return projectToReturn;
+      });
+  });
 };
 
 function validateOnClientUrl(project) {

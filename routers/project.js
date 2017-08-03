@@ -37,10 +37,16 @@ router.delete('/:id', function(req, res, next) {
 
 router.post('/:id/initialization', function(req, res, next) {
 
-  const promise = projectInteractor.initializeProjectUm(req.params.id);
+  const promise = projectInteractor.initializeExistingProjectUm(req.params.id);
 
   sendPromiseResult(promise, req, res, next);
 
+});
+
+router.post('/initialization', function (req, res, next) {
+  const promise = projectInteractor.initializeProjectUm(req.body);
+
+  sendPromiseResult(promise, req, res, next);
 });
 
 
