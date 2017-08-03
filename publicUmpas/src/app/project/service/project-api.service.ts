@@ -37,11 +37,21 @@ export class ProjectApiService {
 
   }
 
-  deleteProject(project){
+  deleteProject(project) {
     return this.http.delete(
       `${this.url}/${project.id}`,
       { headers: this.headers }).toPromise();
   }
 
+  initializeExistingProjectUm(project) {
+    return this.http.post(`${this.url}/${project.id}/initialization`, {}, { headers: this.headers })
+      .toPromise()
+      .then(response => response.json().data);
+  }
 
+  initializeProjectUm(project) {
+    return this.http.post(`${this.url}/initialization`, project, { headers: this.headers })
+      .toPromise()
+      .then(response => response.json().data);
+  }
 }

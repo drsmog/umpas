@@ -24,5 +24,15 @@ export class ProjectDetailsComponent implements OnInit {
 
   }
 
+  onInitialize() {
+    if (this.currentProjectItem.id) {
+      this.projectService.initializeExistingProject(this.currentProjectItem);
+
+      return;
+    }
+
+    this.projectService.initialize(this.currentProjectItem);
+  }
+
 
 }

@@ -26,6 +26,18 @@ export class ProjectService {
       .then((list) => this.projects = list);
   }
 
+  private refreshProject(project) {
+    let projectItemIndex = this.projects.findIndex((item) => item.id === project.id);
+
+    if (projectItemIndex === -1) return;
+
+    Object.assign(this.projects[projectItemIndex], project);
+
+    if (this.projects[projectItemIndex].id === this.selectedProjectId) {
+      Object.assign(this.selectedProject, this.projects[projectItemIndex]);
+    }
+  }
+
   save(project) {
 
     let isEditMode = (project) => { return project.id != null };
@@ -65,8 +77,27 @@ export class ProjectService {
         this.projects = this.projects.slice();
         this.selectedProject = null;
       })
-      .then(this.notifySuccess.bind(this, 'project successfully removed'));
+      .then(this.notifySuccess.bind(this, 'project successfully removed'))
+      .catch(this.handleError.bind(this));
 
+  }
+
+  initialize(project) {
+    return this.api.initializeProjectUm(project)
+      .then(initializedProject => {
+        Object.assign(project, initializedProject);
+
+        return initializedProject;
+      })
+      .then(this.notifySuccess.bind(this, 'project initialized'))
+      .catch(this.handleError.bind(this));
+  }
+
+  initializeExistingProject(project) {
+    return this.api.initializeExistingProjectUm(project)
+      .then(this.refreshProject.bind(this))
+      .then(this.notifySuccess.bind(this, 'project initialized'))
+      .catch(this.handleError.bind(this));
   }
 
   notifySuccess(message) {
