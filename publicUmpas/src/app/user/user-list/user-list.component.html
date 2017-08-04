@@ -88,15 +88,10 @@
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <span class="input-group-addon">Password</span>
-          <input type="text" class="form-control" [(ngModel)]="firstPassword"
-            onclick="this.select();">
+          <span class="input-group-addon">Assigned Password</span>
+          <input type="text" class="form-control passwordInput" [(ngModel)]="firstPassword"
+            onclick="this.select();" readonly>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="onDone()">
-          Done
-        </button>
       </div>
     </div>
   </div>

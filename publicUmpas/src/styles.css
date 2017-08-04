@@ -21,3 +21,7 @@ div[accordion-heading] > button,
 .list-group-item-heading > button {
   float: right;
 }
+
+.passwordInput {
+  background-color: #fff !important;
+}
