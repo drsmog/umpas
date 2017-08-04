@@ -78,17 +78,16 @@
 
 <div class="modal fade" bsModal #passwordModal="bs-modal" [config]="{backdrop: 'static'}"
   tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left"></h4>
+        <h4 class="modal-title pull-left">Assigned Password</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="passwordModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <span class="input-group-addon">Assigned Password</span>
           <input type="text" class="form-control passwordInput" [(ngModel)]="firstPassword"
             onclick="this.select();" readonly>
         </div>
