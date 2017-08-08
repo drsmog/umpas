@@ -23,7 +23,7 @@ export class RoleService {
 
   save(role): Promise<any> {
 
-    let isEditMode = (item) => (item.id != null);
+    let isEditMode = (item) => (item.actions != null);
 
     let pushRole = (item) => {
       this.roles.push(item);
