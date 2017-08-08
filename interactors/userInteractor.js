@@ -74,8 +74,11 @@ exports.updateFullUser = function(projectId, userId, user) {
 
       return service.getUserById(userId)
         .then(function(oldUser) {
+          let usernamePromise = Promise.resolve();
 
-          const usernamePromise = service.changeUsername(userId, user.userName);
+          if (oldUser.userName !== user.userName) {
+            usernamePromise = service.changeUsername(userId, user.userName);
+          }
 
           const infoPromise = service.changeUserInfo(userId, info);
 
