@@ -21,7 +21,7 @@ export class RoleService {
       .then((list) => this.roles = list);
   }
 
-  save(role): Promise<any> {
+  save(role, roleName): Promise<any> {
 
     let isEditMode = (item) => (item.actions != null);
 
@@ -29,14 +29,14 @@ export class RoleService {
       this.roles.push(item);
     };
 
-    let refreshRole = (roleItem) => {
-      let roleIndex = this.roles.findIndex((item) => item.name === roleItem.name);
+    let refreshRole = (roleItem, oldName) => {
+      let roleIndex = this.roles.findIndex((item) => item.name === oldName);
       if (roleIndex === -1) { return; }
       Object.assign(this.roles[roleIndex], roleItem);
     };
 
     if (isEditMode(role)) {
-      return this.api.putRole(this.projectService.selectedProjectId, role).then(refreshRole.bind(this, role))
+      return this.api.putRole(this.projectService.selectedProjectId, role, roleName).then(refreshRole.bind(this, role, roleName))
         .then(this.notifySuccess.bind(this, 'role updated'));
     }
     return this.api.postRole(this.projectService.selectedProjectId, role).then(pushRole)

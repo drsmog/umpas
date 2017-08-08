@@ -31,11 +31,11 @@ export class RoleApiService {
       .then((result) => result.json().data);
   }
 
-  putRole(projectId, role) {
+  putRole(projectId, role, roleName) {
     const searchString = objectToRawString({ projectId: projectId });
 
     return this.http.put(
-      `${this.url}/${role.name}`,
+      `${this.url}/${roleName}`,
       JSON.stringify(role),
       { headers: this.headers, search: searchString }).toPromise();
 

@@ -11,14 +11,19 @@ export class RoleDetailsComponent implements OnInit {
   @Input() currentRole: any;
   @Output() saved: EventEmitter<any> = new EventEmitter();
 
+  roleName: string;
+
 
   constructor(private roleService: RoleService) { }
 
   ngOnInit() {
+    if (this.currentRole.actions != null) {
+      this.roleName = this.currentRole.name;
+    }
   }
 
   onSave() {
-    this.roleService.save(this.currentRole)
+    this.roleService.save(this.currentRole, this.roleName)
       .then(role => {
         this.saved.emit(role);
       });
