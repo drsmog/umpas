@@ -19,7 +19,22 @@ exports.deleteRole = function(projectId, role) {
 exports.createRole = function(projectId, roleObject) {
   return projectInteractor.getLoggedInProjectService(projectId)
     .then(function(service) {
-      return service.createRole(roleObject.name);
+      return service.createRole(roleObject.name, roleObject.description);
+    })
+    .then(function () {
+      return roleObject;
+    });
+};
+
+exports.editRole = function (projectId, roleName, roleObject) {
+  const role = {
+    name: roleObject.name,
+    description: roleObject.description
+  };
+
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.changeRole(role.name, roleName, role);
     })
     .then(function () {
       return roleObject;

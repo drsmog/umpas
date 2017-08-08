@@ -16,6 +16,12 @@ router.post('/', function (req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
+router.put('/:role', function (req, res, next) {
+  const promise = roleInteractor.editRole(req.query.projectId, req.params.role, req.body);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
 router.delete('/:role', function (req, res, next) {
   const promise = roleInteractor.deleteRole(req.query.projectId, req.params.role);
 

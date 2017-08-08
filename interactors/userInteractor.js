@@ -75,6 +75,8 @@ exports.updateFullUser = function(projectId, userId, user) {
       return service.getUserById(userId)
         .then(function(oldUser) {
 
+          const usernamePromise = service.changeUsername(userId, user.userName);
+
           const infoPromise = service.changeUserInfo(userId, info);
 
           const metadataPromise = service.updateMetadata(user.metaData);
@@ -86,6 +88,7 @@ exports.updateFullUser = function(projectId, userId, user) {
             user.roles);
 
           return Promise.all([
+            usernamePromise,
             infoPromise,
             metadataPromise,
             activationPromise,

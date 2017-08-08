@@ -105,9 +105,10 @@ class UmpackService {
     return this._request(deleteVerb, `/roles/${role}`);
   }
 
-  createRole(role) {
+  createRole(role, description) {
     return this._request(postVerb, '/roles', {
-      name: role
+      name: role,
+      description: description
     });
   }
 
@@ -126,6 +127,14 @@ class UmpackService {
 
   initializeUm() {
     return this._request(postVerb, '/initialization', {umBaseUrl: this.project.umBaseUrl});
+  }
+
+  changeUsername(userId, newUsername) {
+    return this._request(putVerb, `/users/${userId}/userName`, {userName: newUsername});
+  }
+
+  changeRole(role, roleInfo) {
+    return this._request(putVerb, `/roles/${role}`, roleInfo);
   }
 
   _rpOptions(method, routeUrl, body) {
