@@ -5,8 +5,14 @@ const projectInteractor = require('./projectInteractor');
 exports.getRoles = function(projectId) {
   return projectInteractor.getLoggedInProjectService(projectId)
     .then(function(service) {
-      return service.getRoles();
+      return service.getRoles()
+        .then(function(roles) {
+          return Promise.map(roles, function(role) {
+            return service.getFullRole(role.name);
+          });
+        });
     });
+
 };
 
 exports.deleteRole = function(projectId, role) {
@@ -21,22 +27,22 @@ exports.createRole = function(projectId, roleObject) {
     .then(function(service) {
       return service.createRole(roleObject.name, roleObject.description);
     })
-    .then(function () {
+    .then(function() {
       return roleObject;
     });
 };
 
-exports.editRole = function (projectId, roleName, roleObject) {
+exports.editRole = function(projectId, roleName, roleObject) {
   const role = {
     name: roleObject.name,
     description: roleObject.description
   };
 
   return projectInteractor.getLoggedInProjectService(projectId)
-    .then(function (service) {
-      return service.changeRole(role.name, roleName, role);
+    .then(function(service) {
+      return service.changeRole(roleName, role);
     })
-    .then(function () {
+    .then(function() {
       return roleObject;
     });
 };
