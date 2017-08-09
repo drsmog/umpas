@@ -103,50 +103,56 @@ exports.cloneProjectData = function(sourceProjectId, destinationProjectId) {
 };
 
 exports.cloneProjectRoles = function(sourceProjectId, destinationProjectId) {
-  const sourceRoles = roleInteractor.getRoles(sourceProjectId);
-
-  const destinationRoles = roleInteractor.getRoles(destinationProjectId);
-
-  const notIncludedRoles = _.differenceBy(sourceRoles, destinationRoles, role => role.name);
-
-  return Promise.map(notIncludedRoles, function(roleObject) {
-    return roleInteractor.createRole(destinationProjectId, roleObject)
-      .then(function() {
-        return Promise.map(roleObject.actions, function(action) {
-          return actionInteractor.permitAction(destinationProjectId, roleObject.name, action);
-        });
+  return Promise.join(
+      roleInteractor.getRoles(sourceProjectId),
+      roleInteractor.getRoles(destinationProjectId),
+      function(sourceRoles, destinationRoles) {
+        return _.differenceBy(sourceRoles, destinationRoles, role => role.name);
+      }
+    )
+    .then(function(notIncludedRoles) {
+      return Promise.map(notIncludedRoles, function(roleObject) {
+        return roleInteractor.createRole(destinationProjectId, roleObject)
+          .then(function() {
+            return Promise.map(roleObject.actions, function(action) {
+              return actionInteractor.permitAction(destinationProjectId, roleObject.name, action);
+            });
+          });
       });
-  });
+    });
 };
 
 exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
-  const sourceUsers = userInteractor.getFullUsersList(sourceProjectId);
-
-  const destinationUsers = userInteractor.getFullUsersList(destinationProjectId);
-
-  const notIncludedUsers = _.differenceBy(sourceUsers, destinationUsers, user => user.userName);
-
-  return Promise.map(notIncludedUsers, function(user) {
-    return userInteractor.registerInactiveUser(destinationProjectId, user)
-      .then(function(password) {
-        return exports.getLoggedInProjectService(destinationProjectId)
-          .then(function(service) {
-            return service.getUserByUsername(user.userName);
-          })
-          .then(function(insertedUser) {
-            return insertedUser.id;
-          })
-          .then(function(userId) {
-            return userInteractor.updateFullUser(destinationProjectId, userId, user);
-          })
-          .then(function() {
-            return {
-              userName: user.userName,
-              password: password
-            };
+  return Promise.join(
+      userInteractor.getFullUsersList(sourceProjectId),
+      userInteractor.getFullUsersList(destinationProjectId),
+      function(sourceUsers, destinationUsers) {
+        return _.differenceBy(sourceUsers, destinationUsers, user => user.userName);
+      }
+    )
+    .then(function(notIncludedUsers) {
+      return Promise.map(notIncludedUsers, function(user) {
+        return userInteractor.registerInactiveUser(destinationProjectId, user)
+          .then(function(password) {
+            return exports.getLoggedInProjectService(destinationProjectId)
+              .then(function(service) {
+                return service.getUserByUsername(user.userName);
+              })
+              .then(function(insertedUser) {
+                return insertedUser.id;
+              })
+              .then(function(userId) {
+                return userInteractor.updateFullUser(destinationProjectId, userId, user);
+              })
+              .then(function() {
+                return {
+                  userName: user.userName,
+                  password: password
+                };
+              });
           });
       });
-  });
+    });
 };
 
 function validateOnClientUrl(project) {
