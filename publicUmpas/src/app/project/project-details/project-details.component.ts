@@ -10,6 +10,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   @Input() currentProjectItem: any;
   @Output() saved: EventEmitter<any> = new EventEmitter();
+  @Output() clone: EventEmitter<any> = new EventEmitter();
 
   private projectItem: any = {};
 
@@ -32,6 +33,10 @@ export class ProjectDetailsComponent implements OnInit {
     }
 
     this.projectService.initialize(this.currentProjectItem);
+  }
+
+  onClone() {
+    this.clone.emit();
   }
 
 

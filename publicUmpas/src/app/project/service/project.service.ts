@@ -100,6 +100,16 @@ export class ProjectService {
       .catch(this.handleError.bind(this));
   }
 
+  cloneProject(sourceProject, destinationProject) {
+    return this.api.cloneProject(sourceProject, destinationProject)
+      .then(credentials => {
+        this.notifySuccess('project cloned');
+
+        return credentials;
+      })
+      .catch(this.handleError.bind(this));
+  }
+
   notifySuccess(message) {
     this.notificationService.addNotification(
       message,

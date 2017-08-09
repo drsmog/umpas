@@ -13,7 +13,11 @@ import { UserService } from '../../user/service/user.service';
 export class ProjectListComponent implements OnInit {
 
   @ViewChild('projectModal') public projectModal: ModalDirective;
+  @ViewChild('cloneModal') public cloneModal: ModalDirective;
+  @ViewChild('credentialsModal') public credentialsModal: ModalDirective;
   newProject: any = {};
+  sourceProject: any;
+  credentialsText: string;
 
   constructor(private projectService: ProjectService,
     private roleService: RoleService,
@@ -53,7 +57,43 @@ export class ProjectListComponent implements OnInit {
     event.stopPropagation();
   }
 
+  public onCloneToggle() {
+    this.cloneModal.show();
+  }
 
+  onCloneSave() {
+    this.cloneModal.hide();
+
+    this.projectService.cloneProject(this.sourceProject, this.projectService.selectedProject)
+      .then(credentials => {
+        this.roleService.fetchRoles();
+
+        this.userService.fetchUsers();
+
+        this.credentialsText = this.credentialsToText(credentials);
+
+        this.credentialsModal.show();
+      });
+  }
+
+  get clonableProjects() {
+    if (!this.projectService.selectedProject) {
+      return this.projectService.projects;
+    }
+
+    return this.projectService.projects.filter(project => project.id !== this.projectService.selectedProject.id);
+  }
+
+  credentialsToText(credentials) {
+    return credentials
+      .map(credential => `${credential.userName}: ${credential.password}`)
+      .reduce((text, credentialText) => {
+        text += credentialText;
+        text += '\n';
+
+        return text;
+      }, '');
+  }
 
 
 }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from './service/project.service';
+
+import { ProjectListComponent } from './project-list/project-list.component';
 
 @Component({
   selector: 'app-project',
@@ -7,14 +9,19 @@ import { ProjectService } from './service/project.service';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
+  @ViewChild(ProjectListComponent) listComponent;
 
-  constructor(private projectService:ProjectService) { }
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
   }
 
   get selectedProject() {
     return this.projectService.selectedProject;
+  }
+
+  onClone() {
+    this.listComponent.onCloneToggle();
   }
 
 }

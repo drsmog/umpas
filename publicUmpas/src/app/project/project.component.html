@@ -4,7 +4,7 @@
 
   <tabset>
     <tab heading="Project Details">
-      <app-project-details [currentProjectItem]="selectedProject"></app-project-details>
+      <app-project-details [currentProjectItem]="selectedProject" (clone)="onClone()"></app-project-details>
     </tab>
     <tab heading="Roles">
       <app-role></app-role>
