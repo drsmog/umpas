@@ -43,8 +43,26 @@ router.post('/:id/initialization', function(req, res, next) {
 
 });
 
-router.post('/initialization', function (req, res, next) {
+router.post('/initialization', function(req, res, next) {
   const promise = projectInteractor.initializeProjectUm(req.body);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
+router.post('/:id', function(req, res, next) {
+  const promise = projectInteractor.cloneProjectData(req.body.projectId, req.params.id);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
+router.post('/:id/roles', function(req, res, next) {
+  const promise = projectInteractor.cloneProjectRoles(req.body.projectId, req.params.id);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
+router.post('/:id/users', function(req, res, next) {
+  const promise = projectInteractor.cloneProjectUsers(req.body.projectId, req.params.id);
 
   sendPromiseResult(promise, req, res, next);
 });

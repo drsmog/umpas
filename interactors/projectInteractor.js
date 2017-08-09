@@ -4,6 +4,9 @@ const Promise = require('bluebird');
 const UmpackService = require('../infrastructure/umpackService');
 const Project = require('../models/project');
 const _ = require('lodash');
+const roleInteractor = require('./roleInteractor');
+const actionInteractor = require('./actionInteractor');
+const userInteractor = require('./userInteractor');
 
 exports.getList = function() {
   return projectRepo.find({});
@@ -70,8 +73,8 @@ exports.initializeExistingProjectUm = function(projectId) {
     });
 };
 
-exports.initializeProjectUm = function (projectObject) {
-  return Promise.try(function () {
+exports.initializeProjectUm = function(projectObject) {
+  return Promise.try(function() {
     validateOnClientUrl(projectObject);
 
     const project = new Project(projectObject);
@@ -79,12 +82,69 @@ exports.initializeProjectUm = function (projectObject) {
     const service = new UmpackService(project);
 
     return service.initializeUm()
-      .then(function (result) {
+      .then(function(result) {
         if (result.password) project.initializeUser(result.password);
 
         const projectToReturn = _.omit(project.toObject(), ['id', '_id']);
 
         return projectToReturn;
+      });
+  });
+};
+
+exports.cloneProjectData = function(sourceProjectId, destinationProjectId) {
+  return Promise.join(
+    exports.cloneProjectUsers(sourceProjectId, destinationProjectId),
+    exports.cloneProjectRoles(sourceProjectId, destinationProjectId),
+    function(credentials) {
+      return credentials;
+    }
+  );
+};
+
+exports.cloneProjectRoles = function(sourceProjectId, destinationProjectId) {
+  const sourceRoles = roleInteractor.getRoles(sourceProjectId);
+
+  const destinationRoles = roleInteractor.getRoles(destinationProjectId);
+
+  const notIncludedRoles = _.differenceBy(sourceRoles, destinationRoles, role => role.name);
+
+  return Promise.map(notIncludedRoles, function(roleObject) {
+    return roleInteractor.createRole(destinationProjectId, roleObject)
+      .then(function() {
+        return Promise.map(roleObject.actions, function(action) {
+          return actionInteractor.permitAction(destinationProjectId, roleObject.name, action);
+        });
+      });
+  });
+};
+
+exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
+  const sourceUsers = userInteractor.getFullUsersList(sourceProjectId);
+
+  const destinationUsers = userInteractor.getFullUsersList(destinationProjectId);
+
+  const notIncludedUsers = _.differenceBy(sourceUsers, destinationUsers, user => user.userName);
+
+  return Promise.map(notIncludedUsers, function(user) {
+    return userInteractor.registerInactiveUser(destinationProjectId, user)
+      .then(function(password) {
+        return exports.getLoggedInProjectService(destinationProjectId)
+          .then(function(service) {
+            return service.getUserByUsername(user.userName);
+          })
+          .then(function(insertedUser) {
+            return insertedUser.id;
+          })
+          .then(function(userId) {
+            return userInteractor.updateFullUser(destinationProjectId, userId, user);
+          })
+          .then(function() {
+            return {
+              userName: user.userName,
+              password: password
+            };
+          });
       });
   });
 };

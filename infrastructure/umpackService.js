@@ -61,6 +61,10 @@ class UmpackService {
     return this._request(getVerb, `/users/${id}`);
   }
 
+  getUserByUsername(username) {
+    return this._request(getVerb, `/users/${username}/full`);
+  }
+
   deleteUser(id) {
     return this._request(deleteVerb, `/users/${id}`);
   }
