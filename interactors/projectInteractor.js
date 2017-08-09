@@ -127,7 +127,11 @@ exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
       userInteractor.getFullUsersList(sourceProjectId),
       userInteractor.getFullUsersList(destinationProjectId),
       function(sourceUsers, destinationUsers) {
-        return _.differenceBy(sourceUsers, destinationUsers, user => user.userName);
+        return _.differenceWith(
+          sourceUsers,
+          destinationUsers,
+          usersComparator
+        );
       }
     )
     .then(function(notIncludedUsers) {
@@ -154,6 +158,17 @@ exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
       });
     });
 };
+
+function usersComparator(source, dest) {
+  if (!source.email && !dest.email) return true;
+
+  const usernamesEquals = source.userName.trim() === dest.userName.trim();
+
+  if (!source.email || !dest.email) return usernamesEquals;
+
+  return usernamesEquals ||
+    source.email.trim() === dest.email.trim();
+}
 
 function validateOnClientUrl(project) {
   if (!project.url) throw new RecordError('project url should not be empty');
