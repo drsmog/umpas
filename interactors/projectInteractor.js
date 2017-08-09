@@ -136,7 +136,7 @@ exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
     )
     .then(function(notIncludedUsers) {
       return Promise.map(notIncludedUsers, function(user) {
-        return userInteractor.registerInactiveUser(destinationProjectId, user)
+        return userInteractor.registerInactiveUser(destinationProjectId, excludePassword(user))
           .then(function(password) {
             return exports.getLoggedInProjectService(destinationProjectId)
               .then(function(service) {
@@ -158,6 +158,10 @@ exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
       });
     });
 };
+
+function excludePassword(user) {
+  return Object.assign({}, user, {password: null});
+}
 
 function usersComparator(source, dest) {
   if (!source.email && !dest.email) return true;
