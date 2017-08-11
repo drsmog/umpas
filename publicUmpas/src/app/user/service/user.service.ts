@@ -22,7 +22,8 @@ export class UserService {
 
   fetchUsers() {
     return this.api.getUsers(this.projectService.selectedProjectId)
-      .then((list) => this.users = list);
+      .then((list) => this.users = list)
+      .catch(this.handleError.bind(this));
   }
 
   getRoles() {
@@ -69,7 +70,8 @@ export class UserService {
       })
       .then(() => {
         this.notificationService.addNotification('user updated', 'success', this.timeOutMilliseconds);
-      });
+      })
+      .catch(this.handleError.bind(this));
   }
 
   removeUser(user) {
@@ -83,7 +85,8 @@ export class UserService {
       })
       .then(() => {
         this.notificationService.addNotification('user removed', 'success', this.timeOutMilliseconds);
-      });
+      })
+      .catch(this.handleError.bind(this));
   }
 
   registerInactiveUser(user) {
@@ -98,7 +101,8 @@ export class UserService {
         this.notificationService.addNotification('user registered', 'success', this.timeOutMilliseconds);
 
         return password;
-      });
+      })
+      .catch(this.handleError.bind(this));
   }
 
   resetPassword(user) {
@@ -111,6 +115,15 @@ export class UserService {
         this.notificationService.addNotification('password resetted', 'success', this.timeOutMilliseconds);
 
         return password;
-      });
+      })
+      .catch(this.handleError.bind(this));
+  }
+
+  handleError(error) {
+    if (error.status === 400) {
+      this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
+
+      throw error;
+    }
   }
 }

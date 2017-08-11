@@ -18,7 +18,8 @@ export class RoleService {
 
   fetchRoles() {
     return this.api.getRoles(this.projectService.selectedProjectId)
-      .then((list) => this.roles = list);
+      .then((list) => this.roles = list)
+      .catch(this.handleError.bind(this));
   }
 
   save(role, roleName): Promise<any> {
@@ -37,10 +38,12 @@ export class RoleService {
 
     if (isEditMode(role)) {
       return this.api.putRole(this.projectService.selectedProjectId, role, roleName).then(refreshRole.bind(this, role, roleName))
-        .then(this.notifySuccess.bind(this, 'role updated'));
+        .then(this.notifySuccess.bind(this, 'role updated'))
+        .catch(this.handleError.bind(this));
     }
     return this.api.postRole(this.projectService.selectedProjectId, role).then(pushRole)
-      .then(this.notifySuccess.bind(this, 'role created successfully'));
+      .then(this.notifySuccess.bind(this, 'role created successfully'))
+      .catch(this.handleError.bind(this));
 
   }
 
@@ -52,7 +55,8 @@ export class RoleService {
       this.roles = this.roles.slice();
       this.selectedRole = null;
     })
-      .then(this.notifySuccess.bind(this, 'role removed successfully'));
+      .then(this.notifySuccess.bind(this, 'role removed successfully'))
+      .catch(this.handleError.bind(this));
   }
 
   notifySuccess(message) {
@@ -63,6 +67,13 @@ export class RoleService {
     );
   }
 
+  handleError(error) {
+    if (error.status === 400) {
+      this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
+
+      throw error;
+    }
+  }
 
 
 
