@@ -10,11 +10,12 @@ export class UserDetailsComponent implements OnInit, OnChanges {
 
   @Input() currentUser: any;
   @Output() passwordReset = new EventEmitter();
+  userName: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-
+    this.userName = this.currentUser.userName;
   }
 
   ngOnChanges(changes: any) {
@@ -37,6 +38,14 @@ export class UserDetailsComponent implements OnInit, OnChanges {
       .then(password => {
         this.passwordReset.emit(password);
       });
+  }
+
+  changeUserName() {
+    if (!this.userName) {
+      return;
+    }
+
+    this.userService.changeUserName(this.currentUser, this.userName);
   }
 
 }

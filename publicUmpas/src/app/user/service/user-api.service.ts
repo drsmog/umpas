@@ -43,4 +43,11 @@ export class UserApiService {
       .toPromise()
       .then(response => response.json().data);
   }
+
+  changeUserName(projectId, userId, newUserName) {
+    return this.http.put(this.url + '/' + userId + '/username',
+      { userName: newUserName },
+      { search: this.projectIdRaw(projectId) })
+      .toPromise();
+  }
 }

@@ -119,6 +119,16 @@ export class UserService {
       .catch(this.handleError.bind(this));
   }
 
+  changeUserName(user, newUserName) {
+    return this.api.changeUserName(this.projectService.selectedProjectId, user.id, newUserName)
+      .then(() => {
+        user.userName = newUserName;
+
+        this.notificationService.addNotification('userName changed', 'success', this.timeOutMilliseconds);
+      })
+      .catch(this.handleError.bind(this));
+  }
+
   handleError(error) {
     if (error.status === 400) {
       this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
