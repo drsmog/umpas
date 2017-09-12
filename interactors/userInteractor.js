@@ -24,6 +24,13 @@ exports.deleteUser = function(projectId, userId) {
     });
 };
 
+exports.changeUserName = function (projectId, userId, newUsername) {
+  return projectInteractor.getLoggedInProjectService(projectId)
+    .then(function (service) {
+      return service.changeUsername(userId, newUsername);
+    });
+};
+
 exports.changeUserInfo = function(projectId, userId, info) {
   return projectInteractor.getLoggedInProjectService(projectId)
     .then(function(service) {
@@ -74,12 +81,6 @@ exports.updateFullUser = function(projectId, userId, user) {
 
       return service.getUserById(userId)
         .then(function(oldUser) {
-          let usernamePromise = Promise.resolve();
-
-          if (oldUser.userName !== user.userName) {
-            usernamePromise = service.changeUsername(userId, user.userName);
-          }
-
           const infoPromise = service.changeUserInfo(userId, info);
 
           const metadataPromise = service.updateMetadata(user.metaData);
@@ -91,7 +92,6 @@ exports.updateFullUser = function(projectId, userId, user) {
             user.roles);
 
           return Promise.all([
-            usernamePromise,
             infoPromise,
             metadataPromise,
             activationPromise,

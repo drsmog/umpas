@@ -27,6 +27,12 @@ router.put('/:id', function(req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
+router.put('/:id/username', function (req, res, next) {
+  const promise = userInteractor.changeUserName(req.query.projectId, req.params.id, req.body.userName);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
 router.put('/:id/info', function(req, res, next) {
   const promise = userInteractor.changeUserInfo(req.query.projectId, req.params
     .id, req.body);
