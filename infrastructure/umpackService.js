@@ -130,15 +130,35 @@ class UmpackService {
   }
 
   initializeUm() {
-    return this._request(postVerb, '/initialization', {umBaseUrl: this.project.umBaseUrl});
+    return this._request(postVerb, '/initialization', {
+      umBaseUrl: this.project.umBaseUrl
+    });
   }
 
   changeUsername(userId, newUsername) {
-    return this._request(putVerb, `/users/${userId}/userName`, {userName: newUsername});
+    return this._request(putVerb, `/users/${userId}/userName`, {
+      userName: newUsername
+    });
   }
 
   changeRole(role, roleInfo) {
     return this._request(putVerb, `/roles/${role}`, roleInfo);
+  }
+
+  getUserDevices(userName) {
+    return this._request(getVerb, `/users/${userName}/devices`);
+  }
+
+  grantUserDeviceAccess(userName, deviceToken) {
+    return this._request(postVerb, `/users/${userName}/devices/access`, {
+      deviceToken: deviceToken
+    });
+  }
+
+  restrictUserDevice(userName, deviceToken) {
+    return this._request(postVerb, `/users/${userName}/devices/restriction`, {
+      deviceToken: deviceToken
+    });
   }
 
   _rpOptions(method, routeUrl, body) {
