@@ -10,7 +10,15 @@ exports.getFullUsersList = function(projectId) {
       return umService.getAllUsers()
         .then(function(users) {
           return Promise.map(users, function(user) {
-            return umService.getUserById(user.id);
+            return Promise.join(
+              umService.getUserById(user.id),
+              umService.getUserDevices(user.userName),
+              function(fullUser, devices) {
+                fullUser.devices = devices;
+
+                return fullUser;
+              }
+            );
           });
         });
 
@@ -24,9 +32,9 @@ exports.deleteUser = function(projectId, userId) {
     });
 };
 
-exports.changeUserName = function (projectId, userId, newUsername) {
+exports.changeUserName = function(projectId, userId, newUsername) {
   return projectInteractor.getLoggedInProjectService(projectId)
-    .then(function (service) {
+    .then(function(service) {
       return service.changeUsername(userId, newUsername);
     });
 };
@@ -118,11 +126,11 @@ exports.registerInactiveUser = function(projectId, user) {
     });
 };
 
-exports.resetUserPassword = function (projectId, userId) {
+exports.resetUserPassword = function(projectId, userId) {
   return projectInteractor.getLoggedInProjectService(projectId)
-    .then(function (service) {
+    .then(function(service) {
       return service.resetUserPassword(userId)
-        .then(function (result) {
+        .then(function(result) {
           return result.password;
         });
     });
@@ -167,4 +175,8 @@ function updateRoles(service, userId, oldRoles, newRoles) {
     assignsPromise,
     unassignsPromise
   ]);
+}
+
+function updateDevices(service, userName, oldDevices, newDevices) {
+
 }
