@@ -87,8 +87,10 @@ exports.updateFullUser = function(projectId, userId, user) {
         'additionalInfo'
       ]);
 
-      return service.getUserById(userId)
-        .then(function(oldUser) {
+      return Promise.join(
+        service.getUserById(userId),
+        service.getUserDevices(user.userName),
+        function(oldUser, oldDevices) {
           const infoPromise = service.changeUserInfo(userId, info);
 
           const metadataPromise = service.updateMetadata(user.metaData);
@@ -99,14 +101,17 @@ exports.updateFullUser = function(projectId, userId, user) {
           const rolesPromise = updateRoles(service, userId, oldUser.roles,
             user.roles);
 
+          const devicesPromise = updateDevices(service, user.userName, oldDevices, user.devices);
+
           return Promise.all([
             infoPromise,
             metadataPromise,
             activationPromise,
-            rolesPromise
+            rolesPromise,
+            devicesPromise
           ]);
-
-        });
+        }
+      );
 
     });
 };
@@ -177,6 +182,38 @@ function updateRoles(service, userId, oldRoles, newRoles) {
   ]);
 }
 
-function updateDevices(service, userName, oldDevices, newDevices) {
+function computeDeviceAccessChanges(oldDevices, newDevices) {
+  let toGrant = [];
+  let toRestrict = [];
 
+  oldDevices.forEach(function(item) {
+    const device = newDevices.find(function(newItem) {
+      return newItem.deviceToken === item.deviceToken;
+    });
+
+    if (!device || item.canAccess === device.canAccess) return;
+
+    if (device.canAccess) toGrant.push(device);
+    else toRestrict.push(device);
+  });
+
+  return {
+    toGrant: toGrant,
+    toRestrict: toRestrict
+  };
+}
+
+function updateDevices(service, userName, oldDevices, newDevices) {
+  const computed = computeDeviceAccessChanges(oldDevices, newDevices);
+  const toGrant = computed.toGrant;
+  const toRestrict = computed.toRestrict;
+
+  return Promise.all([
+    Promise.map(toGrant, function(device) {
+      return service.grantUserDeviceAccess(userName, device.deviceToken);
+    }),
+    Promise.map(toRestrict, function(device) {
+      return service.restrictUserDevice(userName, device.deviceToken);
+    })
+  ]);
 }
