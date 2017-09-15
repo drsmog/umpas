@@ -129,9 +129,10 @@ class UmpackService {
     return this._request(deleteVerb, `/roles/${role}/actions/${actionId}`);
   }
 
-  initializeUm() {
+  initializeUm(deviceToken) {
     return this._request(postVerb, '/initialization', {
-      umBaseUrl: this.project.umBaseUrl
+      umBaseUrl: this.project.umBaseUrl,
+      deviceToken: deviceToken
     });
   }
 

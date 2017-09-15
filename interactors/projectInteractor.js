@@ -7,6 +7,7 @@ const _ = require('lodash');
 const roleInteractor = require('./roleInteractor');
 const actionInteractor = require('./actionInteractor');
 const userInteractor = require('./userInteractor');
+const device = require('../device');
 
 exports.getList = function() {
   return projectRepo.find({});
@@ -81,7 +82,7 @@ exports.initializeProjectUm = function(projectObject) {
 
     const service = new UmpackService(project);
 
-    return service.initializeUm()
+    return service.initializeUm(device.deviceToken)
       .then(function(result) {
         if (result.password) project.initializeUser(result.password);
 
