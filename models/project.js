@@ -27,6 +27,10 @@ const ProjectSchema = new Schema({
   umBaseUrl: {
     type: String,
     default: '/um'
+  },
+  deviceControl: {
+    type: Boolean,
+    default: false
   }
 }, {
   toObject: {
