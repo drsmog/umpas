@@ -10,6 +10,10 @@ exports.getFullUsersList = function(projectId) {
       return umService.getAllUsers()
         .then(function(users) {
           return Promise.map(users, function(user) {
+            if (!umService.project.deviceControl) {
+              return umService.getUserById(user.id);
+            }
+
             return Promise.join(
               umService.getUserById(user.id),
               umService.getUserDevices(user.userName),
@@ -101,7 +105,9 @@ exports.updateFullUser = function(projectId, userId, user) {
           const rolesPromise = updateRoles(service, userId, oldUser.roles,
             user.roles);
 
-          const devicesPromise = updateDevices(service, user.userName, oldDevices, user.devices);
+          const devicesPromise = service.project.deviceControl ?
+            updateDevices(service, user.userName, oldDevices, user.devices) :
+            Promise.resolve();
 
           return Promise.all([
             infoPromise,
