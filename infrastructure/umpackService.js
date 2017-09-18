@@ -1,4 +1,5 @@
 const rp = require('request-promise');
+const device = require('../device');
 
 const getVerb = 'GET';
 const postVerb = 'POST';
@@ -16,7 +17,8 @@ class UmpackService {
       uri: this.project.umFullUrl + '/login',
       body: {
         userName: this.project.username,
-        password: this.project.password
+        password: this.project.password,
+        deviceToken: device.deviceToken
       },
       json: true
     };
