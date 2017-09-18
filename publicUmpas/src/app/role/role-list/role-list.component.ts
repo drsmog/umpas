@@ -16,7 +16,6 @@ export class RoleListComponent implements OnInit {
     constructor(private roleService: RoleService, private actionService: ActionService) { }
 
     ngOnInit() {
-        this.roleService.fetchRoles();
     }
 
     onSelect(role) {

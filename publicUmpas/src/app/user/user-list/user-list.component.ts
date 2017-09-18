@@ -16,8 +16,6 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.fetchUsers()
-      .then(() => console.log(this.userService.users));
   }
 
   isSelected(user) {

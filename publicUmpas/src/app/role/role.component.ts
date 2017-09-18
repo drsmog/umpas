@@ -12,7 +12,6 @@ export class RoleComponent implements OnInit {
   constructor(private roleService: RoleService, private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.fetchUsers();
   }
 
   get roleUsers() {
