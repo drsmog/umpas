@@ -84,6 +84,13 @@
     </p>
   </div>
 
+  <div class="well">
+    <p *ngFor="let device of currentUser.devices">
+      <input type="checkbox" [(ngModel)]="device.canAccess">
+      <label class="verb-label">{{device.deviceToken}}  {{device.lastUsageDate | date: 'yyyy-MM-dd HH:mm:ss'}}</label>
+    </p>
+  </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-success btn-circle btn-lg" data-dismiss="modal" (click)="onSave()" title="Save Action">
       <i class="fa fa-check-circle-o" aria-hidden="true"></i>

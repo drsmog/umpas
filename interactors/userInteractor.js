@@ -6,7 +6,6 @@ const projectInteractor = require('./projectInteractor');
 exports.getFullUsersList = function(projectId) {
   return projectInteractor.getLoggedInProjectService(projectId)
     .then(function(umService) {
-
       return umService.getAllUsers()
         .then(function(users) {
           return Promise.map(users, function(user) {
