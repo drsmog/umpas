@@ -65,7 +65,7 @@ exports.initializeExistingProjectUm = function(projectId) {
     .then(function(project) {
       const service = new UmpackService(project);
 
-      return service.initializeUm()
+      return service.initializeUm(device.deviceToken)
         .then(function(result) {
           if (result.password) project.initializeUser(result.password);
 
