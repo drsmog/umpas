@@ -9,6 +9,7 @@ const deleteVerb = 'DELETE';
 class UmpackService {
   constructor(project) {
     this.project = project;
+    this.loggedIn = false;
   }
 
   login() {
@@ -26,7 +27,14 @@ class UmpackService {
     return rp(options)
       .then(function(token) {
         this.token = token;
+        this.loggedIn = true;
       }.bind(this));
+  }
+
+  logout() {
+    this.loggedIn = false;
+
+    this.token = null;
   }
 
   signup(user) {

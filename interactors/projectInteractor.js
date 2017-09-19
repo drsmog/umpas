@@ -8,6 +8,7 @@ const roleInteractor = require('./roleInteractor');
 const actionInteractor = require('./actionInteractor');
 const userInteractor = require('./userInteractor');
 const device = require('../device');
+const serviceCache = require('../infrastructure/serviceCache');
 
 exports.getList = function() {
   return projectRepo.find({});
@@ -44,15 +45,25 @@ exports.removeProject = function(id) {
 };
 
 exports.getProjectService = function(projectId) {
+  const service = serviceCache.getService(projectId);
+
+  if (service) return Promise.resolve(service);
+
   return projectRepo.getById(projectId)
     .then(function(project) {
-      return new UmpackService(project);
+      const service = new UmpackService(project);
+
+      serviceCache.saveService(projectId, service);
+
+      return service;
     });
 };
 
 exports.getLoggedInProjectService = function(projectId) {
   return exports.getProjectService(projectId)
     .then(function(service) {
+      if (service.loggedIn) return service;
+
       return service.login()
         .then(function() {
           return service;
@@ -161,7 +172,9 @@ exports.cloneProjectUsers = function(sourceProjectId, destinationProjectId) {
 };
 
 function excludePassword(user) {
-  return Object.assign({}, user, {password: null});
+  return Object.assign({}, user, {
+    password: null
+  });
 }
 
 function usersComparator(source, dest) {
