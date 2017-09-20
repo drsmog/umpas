@@ -4,7 +4,6 @@ import { RoleService } from '../../role/service/role.service';
 import { ProjectService } from '../../project/service/project.service';
 
 import { NotificationsService } from '../../core/notification/notifications.service';
-import { HandlerService } from '../../core/handler/handler.service';
 
 @Injectable()
 export class UserService {
@@ -18,14 +17,13 @@ export class UserService {
     private api: UserApiService,
     private roleService: RoleService,
     private notificationService: NotificationsService,
-    private projectService: ProjectService,
-    private handlerService: HandlerService
+    private projectService: ProjectService
   ) { }
 
   fetchUsers() {
     return this.api.getUsers(this.projectService.selectedProjectId)
       .then((list) => this.users = list)
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   getRoles() {
@@ -73,7 +71,7 @@ export class UserService {
       .then(() => {
         this.notificationService.addNotification('user updated', 'success', this.timeOutMilliseconds);
       })
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   removeUser(user) {
@@ -88,7 +86,7 @@ export class UserService {
       .then(() => {
         this.notificationService.addNotification('user removed', 'success', this.timeOutMilliseconds);
       })
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   registerInactiveUser(user) {
@@ -104,7 +102,7 @@ export class UserService {
 
         return password;
       })
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   resetPassword(user) {
@@ -118,7 +116,7 @@ export class UserService {
 
         return password;
       })
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   changeUserName(user, newUserName) {
@@ -128,7 +126,7 @@ export class UserService {
 
         this.notificationService.addNotification('userName changed', 'success', this.timeOutMilliseconds);
       })
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
 }

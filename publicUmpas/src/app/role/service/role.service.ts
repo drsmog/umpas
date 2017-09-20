@@ -3,7 +3,6 @@ import { RoleApiService } from './role-api.service';
 import { ProjectService } from '../../project/service/project.service';
 
 import { NotificationsService } from '../../core/notification/notifications.service';
-import { HandlerService } from '../../core/handler/handler.service';
 
 @Injectable()
 export class RoleService {
@@ -15,14 +14,13 @@ export class RoleService {
   constructor(
     private api: RoleApiService,
     private notificationService: NotificationsService,
-    private projectService: ProjectService,
-    private handlerService: HandlerService
+    private projectService: ProjectService
   ) { }
 
   fetchRoles() {
     return this.api.getRoles(this.projectService.selectedProjectId)
       .then((list) => this.roles = list)
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   save(role, roleName): Promise<any> {
@@ -42,11 +40,11 @@ export class RoleService {
     if (isEditMode(role)) {
       return this.api.putRole(this.projectService.selectedProjectId, role, roleName).then(refreshRole.bind(this, role, roleName))
         .then(this.notifySuccess.bind(this, 'role updated'))
-        .catch(this.handlerService.handleError.bind(this.handlerService));
+        .catch(this.projectService.handleError.bind(this.projectService));
     }
     return this.api.postRole(this.projectService.selectedProjectId, role).then(pushRole)
       .then(this.notifySuccess.bind(this, 'role created successfully'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
 
   }
 
@@ -59,7 +57,7 @@ export class RoleService {
       this.selectedRole = null;
     })
       .then(this.notifySuccess.bind(this, 'role removed successfully'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   notifySuccess(message) {

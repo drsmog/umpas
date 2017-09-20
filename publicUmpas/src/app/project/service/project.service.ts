@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ProjectApiService } from './project-api.service';
 
 import { NotificationsService } from '../../core/notification/notifications.service';
-import { HandlerService } from '../../core/handler/handler.service';
 
 
 @Injectable()
@@ -22,8 +21,7 @@ export class ProjectService {
 
   constructor(
     private api: ProjectApiService,
-    private notificationService: NotificationsService,
-    private handlerService: HandlerService
+    private notificationService: NotificationsService
   ) { }
 
   fetchProjects() {
@@ -63,13 +61,13 @@ export class ProjectService {
       return this.api.putProject(project)
         .then(refreshProject.bind(this, project))
         .then(this.notifySuccess.bind(this, 'project details updated successfully'))
-        .catch(this.handlerService.handleError.bind(this.handlerService));
+        .catch(this.handleError.bind(this));
     }
 
     return this.api.postProject(project)
       .then(pushProject)
       .then(this.notifySuccess.bind(this, 'project added'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.handleError.bind(this));
 
   }
 
@@ -83,7 +81,7 @@ export class ProjectService {
         this.selectedProject = null;
       })
       .then(this.notifySuccess.bind(this, 'project successfully removed'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.handleError.bind(this));
 
   }
 
@@ -95,14 +93,14 @@ export class ProjectService {
         return initializedProject;
       })
       .then(this.notifySuccess.bind(this, 'project initialized'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.handleError.bind(this));
   }
 
   initializeExistingProject(project) {
     return this.api.initializeExistingProjectUm(project)
       .then(this.refreshProject.bind(this))
       .then(this.notifySuccess.bind(this, 'project initialized'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.handleError.bind(this));
   }
 
   cloneProject(sourceProject, destinationProject) {
@@ -112,13 +110,13 @@ export class ProjectService {
 
         return credentials;
       })
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.handleError.bind(this));
   }
 
   relogin() {
     this.api.loginProject(this.selectedProject)
       .then(this.notifySuccess.bind(this, 'logged in project. please do last operation again.'))
-      .catch(this.handlerService.handleError.bind(this.handlerService));
+      .catch(this.handleError.bind(this));
   }
 
   notifySuccess(message) {
@@ -127,6 +125,22 @@ export class ProjectService {
       'success',
       this.timeOutMilliseconds
     );
+  }
+
+  handleError(error) {
+    if (error.status === 400) {
+      this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
+
+      throw error;
+    }
+
+    if (error.status === 401) {
+      this.relogin();
+
+      this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
+
+      throw error;
+    }
   }
 
 }
