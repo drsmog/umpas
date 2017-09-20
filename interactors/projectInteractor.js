@@ -71,6 +71,13 @@ exports.getLoggedInProjectService = function(projectId) {
     });
 };
 
+exports.loginProject = function(projectId) {
+  return exports.getProjectService(projectId)
+    .then(function(service) {
+      return service.login();
+    });
+};
+
 exports.initializeExistingProjectUm = function(projectId) {
   return projectRepo.getById(projectId)
     .then(function(project) {
