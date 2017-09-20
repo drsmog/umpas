@@ -21,7 +21,8 @@ export class ActionService {
         let index = this.actions.findIndex((item) => item.id === action.id);
         this.actions.splice(index, 1);
         this.actions = this.actions.slice();
-      });
+      })
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   save(action, role) {
@@ -40,10 +41,12 @@ export class ActionService {
     };
 
     if (!isEditMode(action)) {
-      return this.api.postAction(this.projectService.selectedProjectId, action, role.name).then(pushAction);
+      return this.api.postAction(this.projectService.selectedProjectId, action, role.name).then(pushAction)
+        .catch(this.projectService.handleError.bind(this.projectService));
     }
 
-    return this.api.putAction(this.projectService.selectedProjectId, action, role.name).then(refreshAction.bind(this, action));
+    return this.api.putAction(this.projectService.selectedProjectId, action, role.name).then(refreshAction.bind(this, action))
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
 }
