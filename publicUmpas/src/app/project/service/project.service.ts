@@ -135,9 +135,9 @@ export class ProjectService {
     }
 
     if (error.status === 401) {
-      this.relogin();
-
       this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
+
+      this.relogin();
 
       throw error;
     }
