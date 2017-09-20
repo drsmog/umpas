@@ -56,8 +56,13 @@ export class ProjectApiService {
   }
 
   cloneProject(sourceProject, destinationProject) {
-    return this.http.post(`${this.url}/${destinationProject.id}`, {projectId: sourceProject.id}, {headers: this.headers})
+    return this.http.post(`${this.url}/${destinationProject.id}`, { projectId: sourceProject.id }, { headers: this.headers })
       .toPromise()
       .then(response => response.json().data);
+  }
+
+  loginProject(project) {
+    return this.http.post(this.url + '/' + project.id + '/login', {}, { headers: this.headers })
+      .toPromise();
   }
 }
