@@ -18,7 +18,8 @@ import { NameFilterPipe } from './core/pipe/name-filter.pipe';
 
 
 // shared service
-import { NotificationsService} from './core/notification/notifications.service';
+import { NotificationsService } from './core/notification/notifications.service';
+import { HandlerService } from './core/handler/handler.service';
 
 // shared core components
 
@@ -87,6 +88,7 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
     RoleService,
     RoleApiService,
     NotificationsService,
+    HandlerService,
     ActionApiService,
     ActionService,
     UserService,

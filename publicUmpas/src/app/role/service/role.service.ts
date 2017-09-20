@@ -3,6 +3,7 @@ import { RoleApiService } from './role-api.service';
 import { ProjectService } from '../../project/service/project.service';
 
 import { NotificationsService } from '../../core/notification/notifications.service';
+import { HandlerService } from '../../core/handler/handler.service';
 
 @Injectable()
 export class RoleService {
@@ -14,12 +15,14 @@ export class RoleService {
   constructor(
     private api: RoleApiService,
     private notificationService: NotificationsService,
-    private projectService: ProjectService) { }
+    private projectService: ProjectService,
+    private handlerService: HandlerService
+  ) { }
 
   fetchRoles() {
     return this.api.getRoles(this.projectService.selectedProjectId)
       .then((list) => this.roles = list)
-      .catch(this.handleError.bind(this));
+      .catch(this.handlerService.handleError.bind(this.handlerService));
   }
 
   save(role, roleName): Promise<any> {
@@ -39,11 +42,11 @@ export class RoleService {
     if (isEditMode(role)) {
       return this.api.putRole(this.projectService.selectedProjectId, role, roleName).then(refreshRole.bind(this, role, roleName))
         .then(this.notifySuccess.bind(this, 'role updated'))
-        .catch(this.handleError.bind(this));
+        .catch(this.handlerService.handleError.bind(this.handlerService));
     }
     return this.api.postRole(this.projectService.selectedProjectId, role).then(pushRole)
       .then(this.notifySuccess.bind(this, 'role created successfully'))
-      .catch(this.handleError.bind(this));
+      .catch(this.handlerService.handleError.bind(this.handlerService));
 
   }
 
@@ -56,7 +59,7 @@ export class RoleService {
       this.selectedRole = null;
     })
       .then(this.notifySuccess.bind(this, 'role removed successfully'))
-      .catch(this.handleError.bind(this));
+      .catch(this.handlerService.handleError.bind(this.handlerService));
   }
 
   notifySuccess(message) {
@@ -66,15 +69,5 @@ export class RoleService {
       this.timeOutMilliseconds
     );
   }
-
-  handleError(error) {
-    if (error.status === 400) {
-      this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
-
-      throw error;
-    }
-  }
-
-
 
 }
