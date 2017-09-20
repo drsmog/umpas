@@ -10,7 +10,7 @@ const RecordError = require('../exceptions/recordError');
 function sendPromiseResult(promise, req, res, next) {
     promise.then(function(result) {
             // logger.logRequest(req);
-            if (result.hasOwnProperty('success')) return res.json(result);
+            if (result && result.hasOwnProperty('success')) return res.json(result);
 
             res.json({
               success: true,
