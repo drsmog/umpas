@@ -12,7 +12,8 @@ export class ActionService {
 
   fetchActions(roleName) {
     return this.api.getActions(this.projectService.selectedProjectId, roleName)
-      .then((list) => this.actions = list);
+      .then((list) => this.actions = list)
+      .catch(this.projectService.handleError.bind(this.projectService));
   }
 
   removeActionOfRole(action) {
