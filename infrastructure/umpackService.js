@@ -13,6 +13,8 @@ class UmpackService {
   }
 
   login() {
+    this.loggedIn = true;
+
     const options = {
       method: postVerb,
       uri: this.project.umFullUrl + '/login',
@@ -27,7 +29,6 @@ class UmpackService {
     return rp(options)
       .then(function(token) {
         this.token = token;
-        this.loggedIn = true;
       }.bind(this));
   }
 
