@@ -20,12 +20,16 @@ function sendPromiseResult(promise, req, res, next) {
         .catch(RecordError,  function (error) {
           res.status(400).json({message: error.message});
         })
-        .catch({statusCode: 400}, function (err) {
-          if (err.error.internalStatus) return res.status(400).send(err.error);
+        .catch(apiErrorPredicate, function (err) {
+          if (err.error.internalStatus) return res.status(err.statusCode).send(err.error);
 
           throw err;
         })
         .catch(next);
+}
+
+function apiErrorPredicate(err) {
+  return !!err.statusCode;
 }
 
 module.exports = {
