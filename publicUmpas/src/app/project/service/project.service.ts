@@ -10,6 +10,7 @@ export class ProjectService {
   projects: any = [];
   selectedProject: any;
   timeOutMilliseconds = 4000;
+  mustRelogin = true;
 
   get projectList() {
     return this.projects;
@@ -114,7 +115,8 @@ export class ProjectService {
   }
 
   relogin() {
-    this.api.loginProject(this.selectedProject)
+    return this.api.loginProject(this.selectedProject)
+      .then(() => {this.mustRelogin = false; })
       .then(this.notifySuccess.bind(this, 'logged in project. please do last operation again.'))
       .catch(this.handleError.bind(this));
   }
@@ -131,15 +133,15 @@ export class ProjectService {
     if (error.status === 400) {
       this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
 
-      throw error;
+      //throw error;
     }
 
     if (error.status === 401) {
       this.notificationService.addNotification(error.json().message, 'warning', this.timeOutMilliseconds);
 
-      this.relogin();
+      this.mustRelogin = true;
 
-      throw error;
+      //throw error;
     }
   }
 

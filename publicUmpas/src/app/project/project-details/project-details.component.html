@@ -18,6 +18,7 @@
     </div>
 
     <div class="modal-footer">
+      <button class="btn btn-warning btn-circle btn-lg" *ngIf="mustRelogin" (click)="relogin()" title="relogin Project"><i class="fa fa-refresh"></i></button>
       <button type="button" class="btn btn-success btn-lg" (click)="onClone()">
         Clone
       </button>

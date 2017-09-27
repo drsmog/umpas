@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../service/project.service';
+import { UserService } from "../../user/service/user.service";
+import { RoleService } from "../../role/service/role.service";
 
 @Component({
   selector: 'app-project-details',
@@ -14,9 +16,29 @@ export class ProjectDetailsComponent implements OnInit {
 
   private projectItem: any = {};
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private userService: UserService, private roleService: RoleService) { }
 
   ngOnInit() {
+  }
+
+  get mustRelogin() {
+    return this.projectService.mustRelogin;
+  }
+
+  relogin() {
+    this.projectService.relogin().then(() => {
+      this.roleService.fetchRoles();
+
+      this.roleService.selectedRole = null;
+      this.roleService.selectedRoleActions = [];
+
+      this.userService.fetchUsers();
+
+      this.userService.selectedUser = null;
+      console.log('refresh project');
+    });
+
+
   }
 
   onSave() {
