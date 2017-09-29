@@ -78,6 +78,19 @@ exports.loginProject = function(projectId) {
     });
 };
 
+exports.selectProject = function(projectId) {
+  const service = serviceCache.getService(projectId);
+
+  if (service) return Promise.resolve();
+
+  return projectRepo.getById(projectId)
+    .then(function(project) {
+      const service = new UmpackService(project);
+
+      serviceCache.saveService(projectId, service);
+    });
+};
+
 exports.initializeExistingProjectUm = function(projectId) {
   return projectRepo.getById(projectId)
     .then(function(project) {

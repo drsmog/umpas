@@ -55,7 +55,13 @@ router.post('/:id', function(req, res, next) {
   sendPromiseResult(promise, req, res, next);
 });
 
-router.post('/:id/login', function (req, res, next) {
+router.post('/:id/select', function(req, res, next) {
+  const promise = projectInteractor.selectProject(req.params.id);
+
+  sendPromiseResult(promise, req, res, next);
+});
+
+router.post('/:id/login', function(req, res, next) {
   const promise = projectInteractor.loginProject(req.params.id);
 
   sendPromiseResult(promise, req, res, next);
