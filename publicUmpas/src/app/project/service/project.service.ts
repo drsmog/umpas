@@ -121,6 +121,13 @@ export class ProjectService {
       .catch(this.handleError.bind(this));
   }
 
+  selectProject(project) {
+    this.selectedProject = Object.assign({}, project);
+
+    return this.api.selectProject(this.selectedProject)
+      .catch(this.handleError.bind(this));
+  }
+
   notifySuccess(message) {
     this.notificationService.addNotification(
       message,

@@ -28,16 +28,17 @@ export class ProjectListComponent implements OnInit {
   }
 
   onSelect(project) {
-    this.projectService.selectedProject = Object.assign({}, project);
+    this.projectService.selectProject(project)
+      .then(() => {
+        this.roleService.fetchRoles();
 
-    this.roleService.fetchRoles();
+        this.roleService.selectedRole = null;
+        this.roleService.selectedRoleActions = [];
 
-    this.roleService.selectedRole = null;
-    this.roleService.selectedRoleActions = [];
+        this.userService.fetchUsers();
 
-    this.userService.fetchUsers();
-
-    this.userService.selectedUser = null;
+        this.userService.selectedUser = null;
+      });
   }
 
   isSelected(project) {

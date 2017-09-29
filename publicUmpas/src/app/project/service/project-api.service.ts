@@ -65,4 +65,9 @@ export class ProjectApiService {
     return this.http.post(this.url + '/' + project.id + '/login', {}, { headers: this.headers })
       .toPromise();
   }
+
+  selectProject(project) {
+    return this.http.post(this.url + '/' + project.id + '/select', {}, { headers: this.headers })
+      .toPromise();
+  }
 }
