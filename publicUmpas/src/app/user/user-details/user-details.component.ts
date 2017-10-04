@@ -19,6 +19,7 @@ export class UserDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: any) {
+    this.userName = this.currentUser.userName;
     this.userService.mergeUserRoleList();
   }
 
